@@ -1,0 +1,9 @@
+[submodule "dependencies/choc"]
+	path = dependencies/choc
+	url = git@github.com:Tracktion/choc.git
+[submodule "dependencies/portaudio"]
+	path = dependencies/portaudio
+	url = git@github.com:PortAudio/portaudio.git
+[submodule "dependencies/fmt"]
+	path = dependencies/fmt
+	url = git@github.com:fmtlib/fmt.git
