@@ -104,9 +104,8 @@ std::shared_ptr<Data> create2(Settings settings){
     return data;
 }
 
-std::mutex data_ready_mutex;
+std::mutex mutex;
 std::condition_variable data_ready;
-std::mutex ui_updated_mutex;
 std::condition_variable ui_updated;
 
 int main(int, char**){
@@ -114,32 +113,29 @@ int main(int, char**){
 
     float fc = 0.01;
 
-    RingBuffer<Settings, 256> rbSettings{};
-    RingBuffer<std::shared_ptr<Data>, 256> rbData{};
-
-    const Settings defaultSettings{0.25, 200};
-
-    auto initialData = create(defaultSettings);
-    rbData.write(initialData);
+    Settings settings{0.25, 200};
+    std::shared_ptr<Data> data = create(settings);
 
     vui::show(config, [&]{
 
-        static float fc = defaultSettings.cutoffFrequency;
-        static int M = defaultSettings.length;
-        static int window = static_cast<int>(defaultSettings.windowType);
+        static float fc = settings.cutoffFrequency;
+        static int M = settings.length;
+        static int window = static_cast<int>(settings.windowType);
         static bool dirty = false;
         static std::array<const char*, 3> windows{"Hamming", "Blackman", "None"};
 
-        static std::shared_ptr<Data> data;
 
-        if(rbData.canRead()){
-            data = rbData.next();
+        std::unique_lock lock{mutex};
+        auto res = data_ready.wait_for(lock, std::chrono::seconds(0));
+        if(res == std::cv_status::no_timeout){
             M = data->x.size();
             std::cout << "M :" << M << "\n";
         }
+        lock.unlock();
+
 
         ImGui::Begin("Graph");
-        ImGui::SetWindowSize({500, 1000});
+        ImGui::SetWindowSize({600, 720});
         if(ImPlot::BeginPlot("Sinc filter")){
             ImPlot::PlotLine("Sinc", data->x.data(), data->y.data(), data->x.size());
             ImPlot::EndPlot();
@@ -155,19 +151,37 @@ int main(int, char**){
         dirty |= ImGui::Combo("window", &window, windows.data(), 3);
 
         if(!ImGui::IsAnyItemActive() && dirty){
+            lock = std::unique_lock{mutex};
             dirty = false;
-            rbSettings.write(Settings{ fc, M, static_cast<WindowType>(window) });
+            settings.cutoffFrequency = fc;
+            settings.length = M;
+            settings.windowType = static_cast<WindowType>(window);
+            lock.unlock();
+            ui_updated.notify_one();
         }
 
         ImGui::End();
+    }, [&]{
+        std::cout << "UI shutting down releasing ui wait lock\n";
+        std::unique_lock lk{mutex};
+        lk.unlock();
+        ui_updated.notify_one();
     });
 
+
     while(true){
-        if(rbSettings.canRead()){
-            auto data = create(rbSettings.next());
-            rbData.write(data);
+        std::unique_lock lk{mutex};
+        std::cout << "waiting on ui update\n";
+        ui_updated.wait(lk);
+
+        if(!vui::isRunning()){
+            break;
         }
-        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+        std::cout << "ui updated\n";
+        data = create(settings);
+        data_ready.notify_one();
+        lk.unlock();
+
     }
 
     vui::wait();
