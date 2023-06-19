@@ -13,7 +13,7 @@ PinkNoise::PinkNoise(int numRows, unsigned seed):  m_seed{ seed }
     m_runningSum = 0;
 
     std::default_random_engine engine{m_seed};
-    std::uniform_int_distribution<long> dist{ 0L, std::numeric_limits<int>::max() };
+    std::uniform_int_distribution<long> dist{ 0L, std::numeric_limits<long>::max() };
     m_rng = std::bind(dist, engine);
 }
 

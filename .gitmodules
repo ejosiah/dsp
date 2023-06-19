@@ -7,3 +7,6 @@
 [submodule "dependencies/fmt"]
 	path = dependencies/fmt
 	url = git@github.com:fmtlib/fmt.git
+[submodule "dependencies/vui"]
+	path = dependencies/vui
+	url = git@github.com:ejosiah/vui.git

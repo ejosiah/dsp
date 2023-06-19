@@ -15,6 +15,7 @@
 #include <pa_ringbuffer.h>
 #include <pa_util.h>
 #include "pink_noise.h"
+#include <vui/vui.h>
 
 #define ERR_GUARD_PA(err) \
 if(err != paNoError) {    \
@@ -33,11 +34,11 @@ struct Channels{
 };
 
 static int paStreamCallback( const void *inputBuffer,
-                      void *outputBuffer,
-                      unsigned long frameCount,
-                      const PaStreamCallbackTimeInfo* timeInfo,
-                      PaStreamCallbackFlags statusFlags,
-                      void *userData ){
+                             void *outputBuffer,
+                             unsigned long frameCount,
+                             const PaStreamCallbackTimeInfo* timeInfo,
+                             PaStreamCallbackFlags statusFlags,
+                             void *userData ){
 
     auto oscillator = reinterpret_cast<Oscillator*>(userData);
     auto channel = reinterpret_cast<Channels*>(outputBuffer);
@@ -116,21 +117,23 @@ static int paNoiseCallback(const void *inputBuffer,
                            void *userData ){
 
     static std::default_random_engine engine{std::random_device{}()};
-    static std::uniform_int_distribution<int> dist{ -1, 1 };
+//    static std::uniform_int_distribution<int> dist{ -1, 1 };
+    static std::normal_distribution<float> dist{0.f, 1.f};
     static auto sample = std::bind(dist, engine);
 
     auto out = reinterpret_cast<Channels*>(outputBuffer);
 
     for(int i = 0; i < frameCount; i++){
-        out->left = sample();
-        out->right = sample();
+        auto v = sample() * 0.01;
+        out->left = v;
+        out->right = v;
         out++;
     }
 
     return paContinue;
 }
 
-int main() {
+int audio_main() {
 
     std::string audioPath = "../../resources/voice.wav";
     std::shared_ptr<std::istream> audioStream = std::make_shared<std::ifstream>(audioPath, std::ios::binary);
@@ -157,7 +160,7 @@ int main() {
     //ERR_GUARD_PA(Pa_OpenDefaultStream(&stream, 0, 2, paFloat32, props.sampleRate, 256, paPlayAudioCallback, &info))
 
     PinkNoiseChannels  noise{ PinkNoise{12}, PinkNoise{16}};
-    ERR_GUARD_PA(Pa_OpenDefaultStream(&stream, 0, 2, paFloat32, SAMPLE_RATE, 256, paPinkNoiseCallback, &noise))
+    ERR_GUARD_PA(Pa_OpenDefaultStream(&stream, 0, 2, paFloat32, SAMPLE_RATE, 256, paNoiseCallback, &noise))
     ERR_GUARD_PA(Pa_StartStream(stream))
 
     Pa_Sleep(NUM_SECONDS * 1000);
