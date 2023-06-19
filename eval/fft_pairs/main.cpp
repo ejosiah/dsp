@@ -52,12 +52,14 @@ void update(Data& data, Settings settings){
             data.y[settings.shift] = 1;
             break;
         case SignalType::RectangularPulse:
-            data.x.resize(128);
-            data.y.resize(128);
+            const int N = 128;
+            data.x.resize(N);
+            data.y.resize(N);
             std::iota(data.x.begin(), data.x.end(), 0);
 
-            for(int i = 0; i < 10; i++){
-                data.y[i + settings.shift] = 1;
+            for(int offset = -5; offset <= 5; offset++){
+                auto index = (N + settings.shift + offset)%N;
+                data.y[index] = 1;
             }
 
             break;
@@ -87,7 +89,7 @@ int main(int, char**){
     std::condition_variable data_ready;
     std::condition_variable ui_updated;
 
-    Settings settings{0, SignalType::Impulse};
+    Settings settings{0, SignalType::RectangularPulse};
     Data data;
     update(data, settings);
 
