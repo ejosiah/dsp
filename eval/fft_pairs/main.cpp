@@ -17,11 +17,12 @@
 static constexpr float PI = 3.1415926535897932384626433832795;
 static constexpr float TWO_PI = 6.283185307179586476925286766559;
 
-enum class SignalType : int { Impulse = 0, RectangularPulse };
+enum class SignalType : int { Impulse = 0, RectangularPulse, Sinc };
 
 struct Settings {
     int shift{0};
-    SignalType signalType;
+    float f{0.25};
+    SignalType signalType{SignalType::Sinc};
 };
 
 struct Data {
@@ -43,27 +44,43 @@ void update(Data& data, Settings settings){
     data.real.clear();
     data.img.clear();
 
-    constexpr int N = 128;
+    auto init = [](Data& data, int n){
+        data.x.resize(n);
+        data.y.resize(n);
+
+        std::iota(data.x.begin(), data.x.end(), 0);
+    };
+
+    int N;
 
     switch(settings.signalType){
         case SignalType::Impulse:
-            data.x.resize(N);
-            data.y.resize(N);
-
-            std::iota(data.x.begin(), data.x.end(), 0);
+            N = 64;
+            init(data, N);
             data.y[settings.shift] = 1;
             break;
         case SignalType::RectangularPulse:
-            data.x.resize(N);
-            data.y.resize(N);
-            std::iota(data.x.begin(), data.x.end(), 0);
+            N = 128;
+            init(data, N);
 
             for(int offset = -5; offset <= 5; offset++){
                 auto index = (N + settings.shift + offset)%N;
                 data.y[index] = 1;
             }
-
             break;
+        case SignalType::Sinc:
+            N = 128;
+            init(data, N);
+
+            for(int i = 0; i < N; i++){
+                auto x = (static_cast<float>(i)/static_cast<float>(N) - 0.5f) * 10;
+                auto f = settings.f ;
+                auto xx = PI * f * x;
+                data.y[i] = xx == 0 ? 1 : std::sin(xx)/xx;
+                data.x[i] = x;
+            }
+            break;
+
     }
 
     std::vector<std::complex<double>> fd(N);
@@ -91,7 +108,7 @@ int main(int, char**){
     std::condition_variable data_ready;
     std::condition_variable ui_updated;
 
-    Settings settings{0, SignalType::RectangularPulse};
+    Settings settings{};
     Data data;
     update(data, settings);
 
@@ -101,10 +118,11 @@ int main(int, char**){
 
         static int shift = settings.shift;
         static int signalType = static_cast<int>(settings.signalType);
-        static std::array<const char*, 2> signals{ "Impulse", "Rectangular pulse" };
+        static std::array<const char*, 3> signals{ "Impulse", "Rectangular pulse", "Sinc" };
         static bool dirty = false;
         static Data lData = data;
         static bool polar = true;
+        static float f = 0;
 
         ImGui::Begin("FT Pairs");
         ImGui::SetWindowSize({1250, 720});
@@ -138,7 +156,15 @@ int main(int, char**){
             }
         }
         ImGui::Checkbox("polar", &polar);
-        dirty |= ImGui::SliderInt("shift", &shift, 0, data.x.size() - 1);
+
+        if(settings.signalType == SignalType::RectangularPulse || settings.signalType == SignalType::Impulse) {
+            dirty |= ImGui::SliderInt("shift", &shift, 0, data.x.size() - 1);
+        }
+
+        if(settings.signalType == SignalType::Sinc){
+            dirty |= ImGui::SliderFloat("f", &f, 0.f, 10.f);
+        }
+
         dirty |= ImGui::Combo("signal", &signalType, signals.data(), signals.size());
 
         ImGui::End();
@@ -148,6 +174,7 @@ int main(int, char**){
             dirty = false;
             settings.shift = shift;
             settings.signalType = static_cast<SignalType>(signalType);
+            settings.f = f;
             lock.unlock();
             ui_updated.notify_one();
         }
