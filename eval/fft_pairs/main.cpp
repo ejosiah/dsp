@@ -42,17 +42,18 @@ void update(Data& data, Settings settings){
     data.phase.clear();
     data.real.clear();
     data.img.clear();
-    
+
+    constexpr int N = 128;
+
     switch(settings.signalType){
         case SignalType::Impulse:
-            data.x.resize(64);
-            data.y.resize(64);
+            data.x.resize(N);
+            data.y.resize(N);
 
             std::iota(data.x.begin(), data.x.end(), 0);
             data.y[settings.shift] = 1;
             break;
         case SignalType::RectangularPulse:
-            const int N = 128;
             data.x.resize(N);
             data.y.resize(N);
             std::iota(data.x.begin(), data.x.end(), 0);
@@ -65,21 +66,22 @@ void update(Data& data, Settings settings){
             break;
     }
 
-    auto M = data.x.size();
-    auto N = 1 << static_cast<int>(std::ceil(std::log2(M)));
     std::vector<std::complex<double>> fd(N);
     dsp::fft(data.y.begin(), data.y.end(), fd.begin());
 
+    data.real.resize(N);
+    data.img.resize(N);
+    data.mag.resize(N);
+    data.phase.resize(N);
 
-    float dx = 1.0f/static_cast<float>(data.x.size());
-    float x = -0.5;
-    for(const auto& c : fd){
-        data.real.push_back(c.real());
-        data.img.push_back(c.imag());
-        data.mag.push_back(std::abs(c));
-        data.phase.push_back(std::arg(c));
-        data.fx.push_back(x);
-        x += dx;
+    for(int i = 0; i < N; i++){
+        const auto& c = fd[i];
+        int index = (i + N/2)%N;
+        data.real[index] = c.real();
+        data.img[index] = c.imag();
+        data.mag[index] = std::abs(c);
+        data.phase[index] = std::arg(c);
+        data.fx.push_back(static_cast<float>(i)/static_cast<float>(N) - 0.5f);
     }
 
 }
@@ -102,7 +104,7 @@ int main(int, char**){
         static std::array<const char*, 2> signals{ "Impulse", "Rectangular pulse" };
         static bool dirty = false;
         static Data lData = data;
-        static bool polar = false;
+        static bool polar = true;
 
         ImGui::Begin("FT Pairs");
         ImGui::SetWindowSize({1250, 720});
