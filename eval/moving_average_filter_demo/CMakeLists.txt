@@ -1,0 +1,2 @@
+add_executable(moving_average_filter main.cpp)
+target_link_libraries(moving_average_filter vui dsp)
