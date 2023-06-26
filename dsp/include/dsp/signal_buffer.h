@@ -30,7 +30,7 @@ namespace dsp {
             m_data.push_back(sample);
         }
 
-        auto size() noexcept {
+        size_t size() noexcept {
             m_data.size();
         }
 
@@ -68,6 +68,14 @@ namespace dsp {
 
         auto cend() const noexcept {
             return m_data.cend();
+        }
+
+        SampleType* data() noexcept {
+            return m_data.data();
+        }
+
+        SampleType* data() const noexcept {
+            return m_data.data();
         }
 
     private:

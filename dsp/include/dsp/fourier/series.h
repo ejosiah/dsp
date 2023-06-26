@@ -16,7 +16,7 @@ namespace dsp::fourier::series {
         auto anCosx = [&, N=resolution, f=frequency](SampleType x){
             const auto w = _2_PI * f;
             SampleType sum{};
-            for(int n = 0; n < N; n++){
+            for(int n = 1; n < N; n++){
                 sum += a(n) * std::cos(w * x * n);
             }
             return sum;
@@ -25,7 +25,7 @@ namespace dsp::fourier::series {
         auto bnSinx = [&, N=resolution, f=frequency](SampleType x){
             const auto w = 2.0 * PI * f;
             SampleType sum{};
-            for(int n = 0; n < N; n++){
+            for(int n = 1; n < N; n++){
                 sum += b(n) * std::sin(w * x * n);
             }
             return sum;
@@ -37,6 +37,8 @@ namespace dsp::fourier::series {
             float sample = a0 + anCosx(x) - bnSinx(x);
             buffer.add(sample);
         }
+
+        return buffer;
     }
 
     template<typename SampleType>
