@@ -1,7 +1,7 @@
 #pragma once
 
 #include <cmath>
-#include <dsp/signal_buffer.h>
+#include <dsp/sample_buffer.h>
 
 namespace dsp::fourier::series {
 

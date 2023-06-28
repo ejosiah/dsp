@@ -2,132 +2,73 @@
 
 #include <complex>
 #include <cmath>
+#include "constants.h"
+#include <numeric>
+#include <functional>
 
 namespace dsp {
 
-    enum class FFTType { FORWARD, INVERSE};
-    int bitReverse(int x, int N) {
-        int log2n = static_cast<int>(std::log2(N));
-        int n = 0;
-        for (int i=0; i < log2n; i++) {
-            n <<= 1;
-            n |= (x & 1);
-            x >>= 1;
+    enum class Domain : int { Time = 0, Spacial, Frequency};
+
+    using Window = std::function<double(size_t, size_t)>;
+
+    enum class InversionType : int { SpectralInversion, SpectralReversal, None};
+
+    struct Windows {
+
+        static auto blackMan(size_t i, size_t M) {
+            const auto i_over_M = static_cast<double >(i)/static_cast<double >(M);
+            return 0.42 - 0.5 * std::cos(2 * PI * i_over_M) + 0.08 * std::cos(4 * PI * i_over_M);
         }
-        return n;
+
+        static auto identity(size_t, size_t){
+            return 1.0;
+        };
+
+        static auto hamming(size_t i, size_t M){
+            const auto i_over_M = static_cast<double >(i)/static_cast<double >(M);
+            return 0.54 - 0.46 * std::cos(2.0 * PI * i_over_M);
+        }
+    };
+
+    void normalize(std::vector<double> &kernel) {
+        const auto sum = std::accumulate(kernel.begin(), kernel.end(), 0.0);
+        for(auto& y : kernel){
+            y /= sum;
+        }
     }
 
-    template<typename realType, FFTType type>
-    constexpr std::complex<realType> unitComplex() {
-        if constexpr (type == FFTType::FORWARD){
-            return std::complex<realType>{0, 1};
-        }else {
-            return std::complex<realType>{0, -1};
-        }
-    }
+    template<InversionType inversionType = InversionType::None>
+    std::vector<double> sinc(double cf, int length, const Window& window = Windows::blackMan) {
+        length = (length | 1);   // length must be odd
+        const auto M = length - 1;
+        std::vector<double> output;
+        for(auto i = 0; i <= M; i++){
+            const double IM2 = double(i)  - double(M)/2;
+            const auto isMidPoint = IM2 == 0;
 
-    template<FFTType type = FFTType::FORWARD>
-    void fft0(std::complex<double>* in, std::complex<double> *out, int log2n)
-    {
-        constexpr double PI = 3.1415926535897932384626433832795;
-        constexpr auto J = unitComplex<double, type>();
-
-        int n = 1 << log2n;
-        for (unsigned int i=0; i < n; ++i) {
-            out[bitReverse(i, n)] = in[i];
+            double y = 2 * PI * cf;
+            if(!isMidPoint){
+                y = std::sin(y * IM2)/IM2;
+            }
+            y *= window(i, M);
+            output.push_back(y);
         }
-        for (int s = 1; s <= log2n; ++s) {
-            int m = 1 << s;
-            int m2 = m >> 1;
-            std::complex<double> w(1, 0);
-            std::complex<double> wm = exp(J * (PI / m2));
-            for (int j=0; j < m2; ++j) {
-                for (int k=j; k < n; k += m) {
-                    std::complex<double> t = w * out[k + m2];
-                    std::complex<double> u = out[k];
-                    out[k] = u + t;
-                    out[k + m2] = u - t;
-                }
-                w *= wm;
+
+        normalize(output);
+
+        if constexpr (inversionType == InversionType::SpectralInversion){
+            for(auto& y : output){
+                y = -y;
+            }
+            output[length/2] += 1;
+        }
+        if constexpr (inversionType == InversionType::SpectralReversal){
+            for(int i = 1; i < length; i += 2){
+                output[i] = -output[i];
             }
         }
+
+        return output;
     }
-
-    template<typename TimeDomainIterator, typename ComplexIterator, FFTType type = FFTType::FORWARD>
-    void fft(TimeDomainIterator tdFirst, TimeDomainIterator tdLast, ComplexIterator c_out){
-        auto size = std::distance(tdFirst, tdLast);
-        auto log2n = static_cast<int>(std::ceil(std::log2(size)));
-        auto sizePowerOf2 = static_cast<int>(std::pow(2, log2n));
-
-        std::vector<std::complex<double>> input{};
-        for(auto next = tdFirst; next != tdLast; next++){
-            std::complex<double> c{*next, 0};
-            input.push_back(c);
-        }
-
-        auto padding = sizePowerOf2 - size;
-        for(int i = 0; i < padding; i++){
-            input.emplace_back(0, 0);
-        }
-
-        std::vector<std::complex<double>> output(sizePowerOf2);
-        fft0<type>(input.data(), output.data(), log2n);
-
-        for(int i = 0; i < sizePowerOf2; i++){
-            *c_out = output[i];
-            c_out++;
-        }
-
-    }
-
-    template<typename T>
-    inline std::vector<T> evenIndices(const std::vector<T>& v){
-        auto n = v.size();
-        std::vector<T> result;
-        result.reserve(n/2);
-
-        for(int i = 0; i < n; i +=2){
-            result.push_back(v[i]);
-        }
-        return result;
-    }
-
-    template<typename T>
-    inline std::vector<T> oddIndices(const std::vector<T>& v){
-        auto n = v.size();
-        std::vector<T> result;
-        result.reserve(n/2);
-
-        for(int i = 1; i < n; i += 2){
-            result.push_back(v[i]);
-        }
-
-        return result;
-    }
-
-    inline std::vector<std::complex<double>> fft2(const std::vector<std::complex<double>>& p){
-        auto n = p.size();
-        if(n <= 1) return p;
-
-        constexpr double PI = 3.1415926535897932384626433832795;
-
-        auto even = evenIndices(p);
-        auto odd = oddIndices(p);
-
-        auto yEven = fft2(even);
-        auto yOdd = fft2(odd);
-        static std::complex<double> J{0, 1};
-        auto dw = std::exp(J * 2.0 * PI/static_cast<double>(n));
-        std::complex<double> w{1, 0};
-
-        std::vector<std::complex<double>> y(n);
-        for(int k = 0; k < n/2; k++){
-            y[k] = yEven[k] + w * yOdd[k];
-            y[k + n/2] = yEven[k] - w * yOdd[k];
-            w *= dw;
-        }
-
-        return y;
-    }
-
 }

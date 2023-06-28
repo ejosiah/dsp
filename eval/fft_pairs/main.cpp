@@ -11,6 +11,7 @@
 #include <memory>
 #include <iostream>
 #include <dsp/dsp.h>
+#include <dsp/filter.h>
 #include <complex>
 #include <condition_variable>
 
@@ -71,7 +72,7 @@ void update(Data& data, Settings settings){
         case SignalType::Sinc:
             N = 128;
             init(data, N);
-
+            auto buffer = dsp::sinc(0.14, 200);
             for(int i = 0; i < N; i++){
                 auto x = (static_cast<float>(i)/static_cast<float>(N) - 0.5f) * 10;
                 auto f = settings.f ;
