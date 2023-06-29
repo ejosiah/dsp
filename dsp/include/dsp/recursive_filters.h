@@ -3,10 +3,9 @@
 #include "dsp.h"
 #include "sample_buffer.h"
 #include <deque>
+#include <tuple>
 
 namespace dsp::recursive {
-
-    using Coefficients = std::deque<double>;
 
     template<typename SampleType>
     SampleBuffer<SampleType> filter(SampleBuffer<SampleType>& input, Coefficients A, Coefficients B){

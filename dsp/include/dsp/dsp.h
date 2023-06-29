@@ -5,10 +5,15 @@
 #include "constants.h"
 #include <numeric>
 #include <functional>
+#include <deque>
 
 namespace dsp {
 
     enum class Domain : int { Time = 0, Spacial, Frequency};
+
+    using Coefficients = std::deque<double>;
+
+    enum class FilterType{ LowPass, HighPass };
 
     using Window = std::function<double(size_t, size_t)>;
 
