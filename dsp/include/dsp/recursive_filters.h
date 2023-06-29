@@ -4,12 +4,16 @@
 #include "sample_buffer.h"
 #include <deque>
 #include <tuple>
+#include "chebyshev.h"
 
 namespace dsp::recursive {
 
     template<typename SampleType>
     SampleBuffer<SampleType> filter(SampleBuffer<SampleType>& input, Coefficients A, Coefficients B){
-        B.push_front(0);
+        assert(B[0] == 0);
+        assert(!A.empty());
+        assert(!B.empty());
+
         const auto N = input.size();
         const auto aN = A.size();
         const auto bN = B.size();
@@ -33,18 +37,14 @@ namespace dsp::recursive {
     template<typename SampleType>
     SampleBuffer<SampleType> lowPassFilter(SampleBuffer<SampleType>& input, SampleType cutoffFrequency){
         assert(cutoffFrequency >= 0 && cutoffFrequency <= 0.5);
-        auto x = std::exp(-2 * PI * cutoffFrequency);
-        Coefficients A{1.0 - x};
-        Coefficients B{x};
+        const auto [A, B] = chebyshev::computeCoefficients(FilterType::LowPass, 0.5, 4, cutoffFrequency);
         return filter(input, A, B);
     }
 
     template<typename SampleType>
     SampleBuffer<SampleType> highPassFilter(SampleBuffer<SampleType>& input, SampleType cutoffFrequency){
         assert(cutoffFrequency >= 0 && cutoffFrequency <= 0.5);
-        auto x = std::exp(-2 * PI * cutoffFrequency);
-        Coefficients A{(1.0 + x) * 0.5, -(1.0 + x) * 0.5};
-        Coefficients B{x};
+        const auto [A, B] = chebyshev::computeCoefficients(FilterType::HighPass, 0.5, 4, cutoffFrequency);
         return filter(input, A, B);
     }
 
@@ -63,6 +63,7 @@ namespace dsp::recursive {
         };
 
         Coefficients  B{
+            0,
             2 * R * cos2pif,
             - (R * R)
         };
@@ -86,6 +87,7 @@ namespace dsp::recursive {
         };
 
         Coefficients  B{
+            0,
             2 * R * cos2pif,
            - (R * R)
         };
