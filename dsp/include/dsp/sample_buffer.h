@@ -46,6 +46,13 @@ namespace dsp {
             m_data.push_back(sample);
         }
 
+        template<typename SampleTypeB>
+        void add(const SampleBuffer<SampleTypeB>& buffer) {
+            auto offset = m_data.size();
+            m_data.resize(m_data.size() + buffer.size());
+            std::memcpy(m_data.data() + offset, buffer.m_data.data(), buffer.size());
+        }
+
         auto size() const noexcept {
             return m_data.size();
         }
@@ -68,6 +75,10 @@ namespace dsp {
 
         void clear() noexcept {
             m_data.clear();
+        }
+
+        void resize(int size) noexcept {
+            m_data.resize(size);
         }
 
         auto begin() noexcept {

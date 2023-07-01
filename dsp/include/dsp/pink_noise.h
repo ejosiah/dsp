@@ -5,6 +5,8 @@
 #include <random>
 #include <algorithm>
 #include <limits>
+#include <functional>
+
 #ifdef PINK_MEASURE
 float pinkMax = -999.0;
 float pinkMin =  999.0;

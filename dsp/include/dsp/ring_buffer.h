@@ -1,50 +1,42 @@
 #pragma once
 
-#include <pa_ringbuffer.h>
-#include <pa_util.h>
 #include <cstddef>
-#include <vector>
+#include <array>
+#include <atomic>
+#include <optional>
 
-template<typename T, size_t Size>
-class RingBuffer{
-public:
-    RingBuffer(){
-        static_assert(((Size - 1) & Size) == 0, "Size must be power of 2");
-        m_data = PaUtil_AllocateZeroInitializedMemory(sizeof(T) * Size);
-        PaUtil_InitializeRingBuffer(&m_delegate, sizeof(T), Size, m_data);
-    }
+namespace dsp {
 
-    ~RingBuffer(){
-        PaUtil_FreeMemory(m_data);
-    }
+    template<typename Entry, size_t Capacity>
+    class RingBuffer {
+    public:
+        RingBuffer() = default;
 
-    bool canRead() const {
-        return PaUtil_GetRingBufferReadAvailable(&m_delegate) > 0;
-    }
+        void push(Entry entry) {
+            m_data[++m_writeIndex % Capacity] = entry;
+        }
 
-    T next() {
-        T entry;
-        PaUtil_ReadRingBuffer(&m_delegate, &entry, 1);
-        return entry;
-    }
+        bool size() const {
+            return (m_writeIndex - m_readIndex) + 1;
+        }
 
-    void write(T value) {
-        PaUtil_WriteRingBuffer(&m_delegate, &value, 1);
-    }
+        bool empty() const {
+            return m_writeIndex < m_readIndex;
+        }
 
-    auto writeIndex() const {
-        return m_delegate.writeIndex;
-    }
+        std::optional<Entry> poll() {
+            if(empty()){
+                return {};
+            }
+            auto value = m_data[m_readIndex % Capacity];
+            m_readIndex++;
+            return value;
+        }
 
-    auto readIndex() const {
-        return m_delegate.readIndex;
-    }
+    private:
+        std::array<Entry, Capacity> m_data;
+        std::atomic_int m_writeIndex{-1};
+        std::atomic_int m_readIndex{0};
+    };
 
-    void reset() {
-        PaUtil_FlushRingBuffer(&m_delegate);
-    }
-
-private:
-    void* m_data = nullptr;
-    PaUtilRingBuffer m_delegate{};
-};
+}

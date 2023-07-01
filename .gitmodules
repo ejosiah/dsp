@@ -10,3 +10,6 @@
 [submodule "dependencies/vui"]
 	path = dependencies/vui
 	url = git@github.com:ejosiah/vui.git
+[submodule "dependencies/kfr"]
+	path = dependencies/kfr
+	url = git@github.com:ejosiah/kfr.git

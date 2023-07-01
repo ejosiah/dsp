@@ -1,4 +1,4 @@
-#include "pink_noise.h"
+#include "dsp/pink_noise.h"
 
 PinkNoise::PinkNoise(int numRows, unsigned seed):  m_seed{ seed }
 {

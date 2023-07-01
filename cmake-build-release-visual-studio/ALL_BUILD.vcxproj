@@ -1,0 +1,258 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="17.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PreferredToolArchitecture>x64</PreferredToolArchitecture>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ResolveNugetPackages>false</ResolveNugetPackages>
+  </PropertyGroup>
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="MinSizeRel|x64">
+      <Configuration>MinSizeRel</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="RelWithDebInfo|x64">
+      <Configuration>RelWithDebInfo</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{284EC5C9-4524-3399-9E39-CF2FE4C99540}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.19041.0</WindowsTargetPlatformVersion>
+    <Platform>x64</Platform>
+    <ProjectName>ALL_BUILD</ProjectName>
+    <VCProjectUpgraderObjectName>NoUpgrade</VCProjectUpgraderObjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'" Label="Configuration">
+    <ConfigurationType>Utility</ConfigurationType>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v143</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.20506.1</_ProjectFileVersion>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">$(Platform)\$(Configuration)\$(ProjectName)\</IntDir>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">
+    <Midl>
+      <AdditionalIncludeDirectories>%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <OutputDirectory>$(ProjectDir)/$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <CustomBuild Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\CMakeLists.txt">
+      <UseUtf8Encoding>Always</UseUtf8Encoding>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Building Custom Rule C:/Users/Josiah Ebhomenye/CLionProjects/dsp/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">setlocal
+"C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\bin\cmake.exe" "-SC:/Users/Josiah Ebhomenye/CLionProjects/dsp" "-BC:/Users/Josiah Ebhomenye/CLionProjects/dsp/cmake-build-release-visual-studio" --check-stamp-file "C:/Users/Josiah Ebhomenye/CLionProjects/dsp/cmake-build-release-visual-studio/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC-C.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeCCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeCXXCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeRCCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Building Custom Rule C:/Users/Josiah Ebhomenye/CLionProjects/dsp/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">setlocal
+"C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\bin\cmake.exe" "-SC:/Users/Josiah Ebhomenye/CLionProjects/dsp" "-BC:/Users/Josiah Ebhomenye/CLionProjects/dsp/cmake-build-release-visual-studio" --check-stamp-file "C:/Users/Josiah Ebhomenye/CLionProjects/dsp/cmake-build-release-visual-studio/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC-C.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeCCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeCXXCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeRCCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">Building Custom Rule C:/Users/Josiah Ebhomenye/CLionProjects/dsp/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">setlocal
+"C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\bin\cmake.exe" "-SC:/Users/Josiah Ebhomenye/CLionProjects/dsp" "-BC:/Users/Josiah Ebhomenye/CLionProjects/dsp/cmake-build-release-visual-studio" --check-stamp-file "C:/Users/Josiah Ebhomenye/CLionProjects/dsp/cmake-build-release-visual-studio/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC-C.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeCCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeCXXCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeRCCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='MinSizeRel|x64'">false</LinkObjects>
+      <Message Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">Building Custom Rule C:/Users/Josiah Ebhomenye/CLionProjects/dsp/CMakeLists.txt</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">setlocal
+"C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\bin\cmake.exe" "-SC:/Users/Josiah Ebhomenye/CLionProjects/dsp" "-BC:/Users/Josiah Ebhomenye/CLionProjects/dsp/cmake-build-release-visual-studio" --check-stamp-file "C:/Users/Josiah Ebhomenye/CLionProjects/dsp/cmake-build-release-visual-studio/CMakeFiles/generate.stamp"
+if %errorlevel% neq 0 goto :cmEnd
+:cmEnd
+endlocal &amp; call :cmErrorLevel %errorlevel% &amp; goto :cmDone
+:cmErrorLevel
+exit /b %1
+:cmDone
+if %errorlevel% neq 0 goto :VCEnd</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCXXInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeCommonLanguageInclude.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeGenericSystem.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeInitializeConfigs.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeLanguageInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeRCInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeSystemSpecificInformation.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\CMakeSystemSpecificInitialize.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\CMakeCommonCompilerMacros.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC-C.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC-CXX.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Compiler\MSVC.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC-C.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC-CXX.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows-MSVC.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\Windows.cmake;C:\Program Files\JetBrains\CLion 2022.3.2\bin\cmake\win\x64\share\cmake-3.24\Modules\Platform\WindowsPaths.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeCCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeCXXCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeRCCompiler.cmake;C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\3.24.2\CMakeSystem.cmake;%(AdditionalInputs)</AdditionalInputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\CMakeFiles\generate.stamp</Outputs>
+      <LinkObjects Condition="'$(Configuration)|$(Platform)'=='RelWithDebInfo|x64'">false</LinkObjects>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\ZERO_CHECK.vcxproj">
+      <Project>{81F6A943-E6CA-3C2B-B281-004BF7E565D9}</Project>
+      <Name>ZERO_CHECK</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dependencies\portaudio\PortAudio.vcxproj">
+      <Project>{85E67955-48C8-3903-B669-8977FEAC8BE1}</Project>
+      <Name>PortAudio</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\eval\clt\clt.vcxproj">
+      <Project>{48549202-8CC2-3C83-9FC6-C1A146013159}</Project>
+      <Name>clt</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dependencies\kfr\detect_cpu.vcxproj">
+      <Project>{FFCA4939-C9A9-3E23-BD37-72428EE65406}</Project>
+      <Name>detect_cpu</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dependencies\vui\dependencies\glfw\docs\docs.vcxproj">
+      <Project>{7BF4670B-3EEC-309A-AB1C-B46B85A5B15D}</Project>
+      <Name>docs</Name>
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dsp\dsp.vcxproj">
+      <Project>{DE86B639-E45F-31FF-8BB7-A26F60D5B10F}</Project>
+      <Name>dsp</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dsp\dsp_main.vcxproj">
+      <Project>{C54FE921-EA58-3AA1-B1F8-6D473337C137}</Project>
+      <Name>dsp_main</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\eval\fft_pairs\fft_pairs.vcxproj">
+      <Project>{31E7EF15-BA19-33EC-8E8D-5EFB3A16E6F8}</Project>
+      <Name>fft_pairs</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\eval\filter_compare\filter_compare.vcxproj">
+      <Project>{D7D3A1F6-7706-39C4-9C11-5A45947D9786}</Project>
+      <Name>filter_compare</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dependencies\fmt\fmt.vcxproj">
+      <Project>{4850D8D5-384C-31C6-B6AD-D934B7EFD643}</Project>
+      <Name>fmt</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dependencies\vui\dependencies\glfw\src\glfw.vcxproj">
+      <Project>{569C10C9-D114-32C4-A8AF-C6333C60FEE1}</Project>
+      <Name>glfw</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dependencies\vui\dependencies\imgui.vcxproj">
+      <Project>{85170B5C-DAE6-377D-A46C-A03585F49828}</Project>
+      <Name>imgui</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\eval\kfr_eval\kfr_eval.vcxproj">
+      <Project>{185E93C6-1798-3D5A-ADA0-4E8F092AC1A6}</Project>
+      <Name>kfr_eval</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dependencies\kfr\kfr_io.vcxproj">
+      <Project>{92CA302C-B7F2-3672-9978-15D7FA73FCA7}</Project>
+      <Name>kfr_io</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\eval\moving_average_filter_demo\moving_average_filter.vcxproj">
+      <Project>{DE6A7CB6-B05F-35B0-A714-E8FD1EB3D079}</Project>
+      <Name>moving_average_filter</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\eval\profiling\profiling.vcxproj">
+      <Project>{376D856C-5363-3F20-8F5A-04013101D0A8}</Project>
+      <Name>profiling</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\eval\recursive_filters\recursive_filters.vcxproj">
+      <Project>{19C2BD5C-53B8-3992-8BC6-2ADC30E2A728}</Project>
+      <Name>recursive_filters</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\eval\windowed_sinc_filter\sinc_filter.vcxproj">
+      <Project>{7F7247B4-2E8A-3310-A15C-2CF72FC24D35}</Project>
+      <Name>sinc_filter</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dependencies\vui\test\test.vcxproj">
+      <Project>{CA5A786C-BE39-3CFA-A186-FAA287B4D2E0}</Project>
+      <Name>test</Name>
+    </ProjectReference>
+    <ProjectReference Include="C:\Users\Josiah Ebhomenye\CLionProjects\dsp\cmake-build-release-visual-studio\dependencies\vui\src\vui.vcxproj">
+      <Project>{B56D9913-819B-33A1-91BE-4B86E20075F5}</Project>
+      <Name>vui</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

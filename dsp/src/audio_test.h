@@ -14,7 +14,7 @@
 #include <portaudio.h>
 #include <pa_ringbuffer.h>
 #include <pa_util.h>
-#include "pink_noise.h"
+#include "dsp/pink_noise.h"
 #include <vui/vui.h>
 
 #define ERR_GUARD_PA(err) \
@@ -135,7 +135,7 @@ static int paNoiseCallback(const void *inputBuffer,
 
 int audio_main() {
 
-    std::string audioPath = "../../resources/voice.wav";
+    std::string audioPath = "../../../resources/voice.wav";
     std::shared_ptr<std::istream> audioStream = std::make_shared<std::ifstream>(audioPath, std::ios::binary);
 
     choc::audio::WAVAudioFileFormat<false> audioFileFormat{};

@@ -1,0 +1,52 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"dependencies/vui/CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "imgui::@cd1718f917b968e4fb2b"
+		},
+		{
+			"id" : "glfw::@7b956ab5184761c1e712"
+		},
+		{
+			"id" : "vui::@1c666a6d898ed4b5689b"
+		},
+		{
+			"id" : "docs::@bfd1558c92c1a17cc44c"
+		},
+		{
+			"id" : "test::@189a5d48883b07679853"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		}
+	],
+	"folder" : 
+	{
+		"name" : "CMakePredefinedTargets"
+	},
+	"id" : "ALL_BUILD::@6e29c0fd1df4a4c1be7b",
+	"isGeneratorProvided" : true,
+	"name" : "ALL_BUILD",
+	"paths" : 
+	{
+		"build" : "dependencies/vui",
+		"source" : "dependencies/vui"
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}

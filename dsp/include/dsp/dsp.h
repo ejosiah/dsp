@@ -6,14 +6,15 @@
 #include <numeric>
 #include <functional>
 #include <deque>
+#include <ostream>
 
 namespace dsp {
 
     enum class Domain : int { Time = 0, Spacial, Frequency};
 
-    using Coefficients = std::deque<double>;
+    using Coefficients = std::vector<double>;
 
-    enum class FilterType{ LowPass, HighPass };
+    enum class FilterType : int { LowPass, HighPass };
 
     using Window = std::function<double(size_t, size_t)>;
 
@@ -76,4 +77,8 @@ namespace dsp {
 
         return output;
     }
+}
+
+std::ostream& operator<<(std::ostream& out, const dsp::FilterType& filterType){
+    return out << static_cast<int>(filterType);
 }

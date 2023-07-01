@@ -1,0 +1,94 @@
+{
+	"backtrace" : 0,
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : 
+		[
+			"CMakeLists.txt"
+		],
+		"nodes" : 
+		[
+			{
+				"file" : 0
+			}
+		]
+	},
+	"dependencies" : 
+	[
+		{
+			"id" : "PortAudio::@1a14b82cae9a8816b73d"
+		},
+		{
+			"id" : "imgui::@cd1718f917b968e4fb2b"
+		},
+		{
+			"id" : "fmt::@9964d956d591922f2692"
+		},
+		{
+			"id" : "fft_pairs::@75092ad1a759fa208284"
+		},
+		{
+			"id" : "clt::@70d4d247d4ab24c45377"
+		},
+		{
+			"id" : "kfr_io::@536edcef2844973289c1"
+		},
+		{
+			"id" : "dsp::@280f9fa8b8237e444cb0"
+		},
+		{
+			"id" : "glfw::@7b956ab5184761c1e712"
+		},
+		{
+			"id" : "vui::@1c666a6d898ed4b5689b"
+		},
+		{
+			"id" : "detect_cpu::@536edcef2844973289c1"
+		},
+		{
+			"id" : "dsp_main::@280f9fa8b8237e444cb0"
+		},
+		{
+			"id" : "sinc_filter::@371c852bb5f2fd1b93b2"
+		},
+		{
+			"id" : "docs::@bfd1558c92c1a17cc44c"
+		},
+		{
+			"id" : "test::@189a5d48883b07679853"
+		},
+		{
+			"id" : "kfr_eval::@27ecdc1fc2e223f896bd"
+		},
+		{
+			"id" : "recursive_filters::@3cb71c79acf66e397439"
+		},
+		{
+			"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df"
+		},
+		{
+			"id" : "filter_compare::@48ce1e27a7bcce1b8fca"
+		},
+		{
+			"id" : "profiling::@584c1bb1910bf40042b9"
+		},
+		{
+			"id" : "moving_average_filter::@4637b8570b071d89b753"
+		}
+	],
+	"folder" : 
+	{
+		"name" : "CMakePredefinedTargets"
+	},
+	"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+	"isGeneratorProvided" : true,
+	"name" : "ALL_BUILD",
+	"paths" : 
+	{
+		"build" : ".",
+		"source" : "."
+	},
+	"sources" : [],
+	"type" : "UTILITY"
+}

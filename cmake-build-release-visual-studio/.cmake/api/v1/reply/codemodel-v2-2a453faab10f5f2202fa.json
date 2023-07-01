@@ -1,0 +1,2836 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						12,
+						13
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Debug-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						7
+					]
+				},
+				{
+					"build" : "dependencies",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						11
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies-Debug-213773dd22be3796fa39.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "dependencies"
+				},
+				{
+					"build" : "dependencies/fmt",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.fmt-Debug-9b561c1bad423510408e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "dependencies/fmt",
+					"targetIndexes" : 
+					[
+						4,
+						15
+					]
+				},
+				{
+					"build" : "dependencies/portaudio",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.portaudio-Debug-1140801a275d9b24b4aa.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "dependencies/portaudio",
+					"targetIndexes" : 
+					[
+						0,
+						6,
+						25
+					]
+				},
+				{
+					"build" : "dependencies/vui",
+					"childIndexes" : 
+					[
+						5,
+						9,
+						10
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui-Debug-de36453ce1e4a95cda9a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies",
+					"childIndexes" : 
+					[
+						6
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies-Debug-80ea0be520fce3947636.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/dependencies",
+					"targetIndexes" : 
+					[
+						17
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw",
+					"childIndexes" : 
+					[
+						7,
+						8
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw-Debug-01ca24f8286e79b9eb0b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 5,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw.src-Debug-cded7914088137c2f49e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw/src",
+					"targetIndexes" : 
+					[
+						16,
+						26
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw/docs",
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw.docs-Debug-0becbab9ff52c315b033.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw/docs",
+					"targetIndexes" : 
+					[
+						10
+					]
+				},
+				{
+					"build" : "dependencies/vui/src",
+					"jsonFile" : "directory-dependencies.vui.src-Debug-09e08c6e31be102034c7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/src",
+					"targetIndexes" : 
+					[
+						27
+					]
+				},
+				{
+					"build" : "dependencies/vui/test",
+					"jsonFile" : "directory-dependencies.vui.test-Debug-25a0e77eb473e988127d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/test",
+					"targetIndexes" : 
+					[
+						24
+					]
+				},
+				{
+					"build" : "dependencies/kfr",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.kfr-Debug-3969033edd51df946e4d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 5,
+					"source" : "dependencies/kfr",
+					"targetIndexes" : 
+					[
+						5,
+						9,
+						19
+					]
+				},
+				{
+					"build" : "dsp",
+					"jsonFile" : "directory-dsp-Debug-806c511b3972120acb7e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "dsp",
+					"targetIndexes" : 
+					[
+						11,
+						12
+					]
+				},
+				{
+					"build" : "eval",
+					"childIndexes" : 
+					[
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21
+					],
+					"jsonFile" : "directory-eval-Debug-8a4ed558bec26ca4844e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "eval"
+				},
+				{
+					"build" : "eval/windowed_sinc_filter",
+					"jsonFile" : "directory-eval.windowed_sinc_filter-Debug-e405f8fc70ce4f79805c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/windowed_sinc_filter",
+					"targetIndexes" : 
+					[
+						23
+					]
+				},
+				{
+					"build" : "eval/fft_pairs",
+					"jsonFile" : "directory-eval.fft_pairs-Debug-60a9d6df2781d3db8dd7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/fft_pairs",
+					"targetIndexes" : 
+					[
+						13
+					]
+				},
+				{
+					"build" : "eval/clt",
+					"jsonFile" : "directory-eval.clt-Debug-db2f4a529f8610f001f1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/clt",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "eval/moving_average_filter_demo",
+					"jsonFile" : "directory-eval.moving_average_filter_demo-Debug-206198f0ba1cf2edb660.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/moving_average_filter_demo",
+					"targetIndexes" : 
+					[
+						20
+					]
+				},
+				{
+					"build" : "eval/filter_compare",
+					"jsonFile" : "directory-eval.filter_compare-Debug-0e225d91093e0fdbcdcb.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/filter_compare",
+					"targetIndexes" : 
+					[
+						14
+					]
+				},
+				{
+					"build" : "eval/recursive_filters",
+					"jsonFile" : "directory-eval.recursive_filters-Debug-2da95dc3a0b95462056e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/recursive_filters",
+					"targetIndexes" : 
+					[
+						22
+					]
+				},
+				{
+					"build" : "eval/profiling",
+					"jsonFile" : "directory-eval.profiling-Debug-549afaff51181822acf1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/profiling",
+					"targetIndexes" : 
+					[
+						21
+					]
+				},
+				{
+					"build" : "eval/kfr_eval",
+					"jsonFile" : "directory-eval.kfr_eval-Debug-982557f84a2275f2b102.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/kfr_eval",
+					"targetIndexes" : 
+					[
+						18
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						5
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21
+					],
+					"name" : "dsp",
+					"targetIndexes" : 
+					[
+						1,
+						7,
+						8,
+						11,
+						12,
+						13,
+						14,
+						18,
+						20,
+						21,
+						22,
+						23
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "FMT",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4,
+						15
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "PortAudio",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						6,
+						25
+					]
+				},
+				{
+					"childIndexes" : 
+					[
+						4
+					],
+					"directoryIndexes" : 
+					[
+						4,
+						5,
+						9,
+						10
+					],
+					"name" : "vui",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3,
+						17,
+						24,
+						27
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6,
+						7,
+						8
+					],
+					"name" : "GLFW",
+					"parentIndex" : 3,
+					"targetIndexes" : 
+					[
+						2,
+						10,
+						16,
+						26
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						11
+					],
+					"name" : "kfr",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						5,
+						9,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "ALL_BUILD::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-ALL_BUILD-Debug-70cf843b9771690f80e0.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-Debug-34c0ad1b8f695dfada9c.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "ALL_BUILD::@ae3b17e5d4d52308e3a4",
+					"jsonFile" : "target-ALL_BUILD-Debug-cbbaad62577d7106a146.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ALL_BUILD::@6e29c0fd1df4a4c1be7b",
+					"jsonFile" : "target-ALL_BUILD-Debug-fb7bf88d9836b4cdde98.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@9964d956d591922f2692",
+					"jsonFile" : "target-ALL_BUILD-Debug-53890a5671bc20adc058.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "ALL_BUILD::@536edcef2844973289c1",
+					"jsonFile" : "target-ALL_BUILD-Debug-cba6ae684ff57bf33473.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "PortAudio::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-PortAudio-Debug-6184b5d609edea9707a5.json",
+					"name" : "PortAudio",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-Debug-10dfbdef01879a8730d9.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 16,
+					"id" : "clt::@70d4d247d4ab24c45377",
+					"jsonFile" : "target-clt-Debug-133c25f8a9440d9e7ac7.json",
+					"name" : "clt",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "detect_cpu::@536edcef2844973289c1",
+					"jsonFile" : "target-detect_cpu-Debug-c8f753162f8f4355dc98.json",
+					"name" : "detect_cpu",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "docs::@bfd1558c92c1a17cc44c",
+					"jsonFile" : "target-docs-Debug-77d06a773223c62aa3b1.json",
+					"name" : "docs",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "dsp::@280f9fa8b8237e444cb0",
+					"jsonFile" : "target-dsp-Debug-c3daaf60da829b9c9bd4.json",
+					"name" : "dsp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "dsp_main::@280f9fa8b8237e444cb0",
+					"jsonFile" : "target-dsp_main-Debug-e3af8d6ff2238b5c0423.json",
+					"name" : "dsp_main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 15,
+					"id" : "fft_pairs::@75092ad1a759fa208284",
+					"jsonFile" : "target-fft_pairs-Debug-793b449fe6c36ccbe8f4.json",
+					"name" : "fft_pairs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 18,
+					"id" : "filter_compare::@48ce1e27a7bcce1b8fca",
+					"jsonFile" : "target-filter_compare-Debug-6c6e2b13f2c4a783e721.json",
+					"name" : "filter_compare",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "fmt::@9964d956d591922f2692",
+					"jsonFile" : "target-fmt-Debug-5180aaf590fa9e09b188.json",
+					"name" : "fmt",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "glfw::@7b956ab5184761c1e712",
+					"jsonFile" : "target-glfw-Debug-673f8c0dd2a36a55f7d4.json",
+					"name" : "glfw",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "imgui::@cd1718f917b968e4fb2b",
+					"jsonFile" : "target-imgui-Debug-8a7883c6db8ddfa4c317.json",
+					"name" : "imgui",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 21,
+					"id" : "kfr_eval::@27ecdc1fc2e223f896bd",
+					"jsonFile" : "target-kfr_eval-Debug-51a3cf036930fde3e332.json",
+					"name" : "kfr_eval",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "kfr_io::@536edcef2844973289c1",
+					"jsonFile" : "target-kfr_io-Debug-fd575350684f161429a7.json",
+					"name" : "kfr_io",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 17,
+					"id" : "moving_average_filter::@4637b8570b071d89b753",
+					"jsonFile" : "target-moving_average_filter-Debug-3d2f900c3e7fcdec05a8.json",
+					"name" : "moving_average_filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 20,
+					"id" : "profiling::@584c1bb1910bf40042b9",
+					"jsonFile" : "target-profiling-Debug-3e97d4a8f9f923ebe1b5.json",
+					"name" : "profiling",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 19,
+					"id" : "recursive_filters::@3cb71c79acf66e397439",
+					"jsonFile" : "target-recursive_filters-Debug-4e3413bfd496ea85c705.json",
+					"name" : "recursive_filters",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 14,
+					"id" : "sinc_filter::@371c852bb5f2fd1b93b2",
+					"jsonFile" : "target-sinc_filter-Debug-bfa9174f4d13234623b4.json",
+					"name" : "sinc_filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "test::@189a5d48883b07679853",
+					"jsonFile" : "target-test-Debug-5941047f07ab96223f2c.json",
+					"name" : "test",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "uninstall::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-uninstall-Debug-076d30aab0e1ee5092f7.json",
+					"name" : "uninstall",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "update_mappings::@7b956ab5184761c1e712",
+					"jsonFile" : "target-update_mappings-Debug-764ef8aa5894008b7920.json",
+					"name" : "update_mappings",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "vui::@1c666a6d898ed4b5689b",
+					"jsonFile" : "target-vui-Debug-454c0577a19862144e6a.json",
+					"name" : "vui",
+					"projectIndex" : 3
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						12,
+						13
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-Release-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						7
+					]
+				},
+				{
+					"build" : "dependencies",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						11
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies-Release-213773dd22be3796fa39.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "dependencies"
+				},
+				{
+					"build" : "dependencies/fmt",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.fmt-Release-c203e167079bcee1c734.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "dependencies/fmt",
+					"targetIndexes" : 
+					[
+						4,
+						15
+					]
+				},
+				{
+					"build" : "dependencies/portaudio",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.portaudio-Release-5c9ad7e2b411284bdab5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "dependencies/portaudio",
+					"targetIndexes" : 
+					[
+						0,
+						6,
+						25
+					]
+				},
+				{
+					"build" : "dependencies/vui",
+					"childIndexes" : 
+					[
+						5,
+						9,
+						10
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui-Release-de36453ce1e4a95cda9a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies",
+					"childIndexes" : 
+					[
+						6
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies-Release-80ea0be520fce3947636.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/dependencies",
+					"targetIndexes" : 
+					[
+						17
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw",
+					"childIndexes" : 
+					[
+						7,
+						8
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw-Release-01ca24f8286e79b9eb0b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 5,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw.src-Release-ff65fd64a1420d9ab959.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw/src",
+					"targetIndexes" : 
+					[
+						16,
+						26
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw/docs",
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw.docs-Release-0becbab9ff52c315b033.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw/docs",
+					"targetIndexes" : 
+					[
+						10
+					]
+				},
+				{
+					"build" : "dependencies/vui/src",
+					"jsonFile" : "directory-dependencies.vui.src-Release-09e08c6e31be102034c7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/src",
+					"targetIndexes" : 
+					[
+						27
+					]
+				},
+				{
+					"build" : "dependencies/vui/test",
+					"jsonFile" : "directory-dependencies.vui.test-Release-25a0e77eb473e988127d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/test",
+					"targetIndexes" : 
+					[
+						24
+					]
+				},
+				{
+					"build" : "dependencies/kfr",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.kfr-Release-9d36ec22e1c6a4a88aad.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 5,
+					"source" : "dependencies/kfr",
+					"targetIndexes" : 
+					[
+						5,
+						9,
+						19
+					]
+				},
+				{
+					"build" : "dsp",
+					"jsonFile" : "directory-dsp-Release-806c511b3972120acb7e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "dsp",
+					"targetIndexes" : 
+					[
+						11,
+						12
+					]
+				},
+				{
+					"build" : "eval",
+					"childIndexes" : 
+					[
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21
+					],
+					"jsonFile" : "directory-eval-Release-8a4ed558bec26ca4844e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "eval"
+				},
+				{
+					"build" : "eval/windowed_sinc_filter",
+					"jsonFile" : "directory-eval.windowed_sinc_filter-Release-e405f8fc70ce4f79805c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/windowed_sinc_filter",
+					"targetIndexes" : 
+					[
+						23
+					]
+				},
+				{
+					"build" : "eval/fft_pairs",
+					"jsonFile" : "directory-eval.fft_pairs-Release-60a9d6df2781d3db8dd7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/fft_pairs",
+					"targetIndexes" : 
+					[
+						13
+					]
+				},
+				{
+					"build" : "eval/clt",
+					"jsonFile" : "directory-eval.clt-Release-db2f4a529f8610f001f1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/clt",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "eval/moving_average_filter_demo",
+					"jsonFile" : "directory-eval.moving_average_filter_demo-Release-206198f0ba1cf2edb660.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/moving_average_filter_demo",
+					"targetIndexes" : 
+					[
+						20
+					]
+				},
+				{
+					"build" : "eval/filter_compare",
+					"jsonFile" : "directory-eval.filter_compare-Release-0e225d91093e0fdbcdcb.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/filter_compare",
+					"targetIndexes" : 
+					[
+						14
+					]
+				},
+				{
+					"build" : "eval/recursive_filters",
+					"jsonFile" : "directory-eval.recursive_filters-Release-2da95dc3a0b95462056e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/recursive_filters",
+					"targetIndexes" : 
+					[
+						22
+					]
+				},
+				{
+					"build" : "eval/profiling",
+					"jsonFile" : "directory-eval.profiling-Release-549afaff51181822acf1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/profiling",
+					"targetIndexes" : 
+					[
+						21
+					]
+				},
+				{
+					"build" : "eval/kfr_eval",
+					"jsonFile" : "directory-eval.kfr_eval-Release-982557f84a2275f2b102.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/kfr_eval",
+					"targetIndexes" : 
+					[
+						18
+					]
+				}
+			],
+			"name" : "Release",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						5
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21
+					],
+					"name" : "dsp",
+					"targetIndexes" : 
+					[
+						1,
+						7,
+						8,
+						11,
+						12,
+						13,
+						14,
+						18,
+						20,
+						21,
+						22,
+						23
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "FMT",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4,
+						15
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "PortAudio",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						6,
+						25
+					]
+				},
+				{
+					"childIndexes" : 
+					[
+						4
+					],
+					"directoryIndexes" : 
+					[
+						4,
+						5,
+						9,
+						10
+					],
+					"name" : "vui",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3,
+						17,
+						24,
+						27
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6,
+						7,
+						8
+					],
+					"name" : "GLFW",
+					"parentIndex" : 3,
+					"targetIndexes" : 
+					[
+						2,
+						10,
+						16,
+						26
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						11
+					],
+					"name" : "kfr",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						5,
+						9,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "ALL_BUILD::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-ALL_BUILD-Release-70cf843b9771690f80e0.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-Release-34c0ad1b8f695dfada9c.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "ALL_BUILD::@ae3b17e5d4d52308e3a4",
+					"jsonFile" : "target-ALL_BUILD-Release-cbbaad62577d7106a146.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ALL_BUILD::@6e29c0fd1df4a4c1be7b",
+					"jsonFile" : "target-ALL_BUILD-Release-fb7bf88d9836b4cdde98.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@9964d956d591922f2692",
+					"jsonFile" : "target-ALL_BUILD-Release-53890a5671bc20adc058.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "ALL_BUILD::@536edcef2844973289c1",
+					"jsonFile" : "target-ALL_BUILD-Release-cba6ae684ff57bf33473.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "PortAudio::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-PortAudio-Release-adebd3c2e5daa0379a10.json",
+					"name" : "PortAudio",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-Release-10dfbdef01879a8730d9.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 16,
+					"id" : "clt::@70d4d247d4ab24c45377",
+					"jsonFile" : "target-clt-Release-687202e312fe27b20f08.json",
+					"name" : "clt",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "detect_cpu::@536edcef2844973289c1",
+					"jsonFile" : "target-detect_cpu-Release-6afda22ac521d23f17d8.json",
+					"name" : "detect_cpu",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "docs::@bfd1558c92c1a17cc44c",
+					"jsonFile" : "target-docs-Release-77d06a773223c62aa3b1.json",
+					"name" : "docs",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "dsp::@280f9fa8b8237e444cb0",
+					"jsonFile" : "target-dsp-Release-f97f76657d32d17965cd.json",
+					"name" : "dsp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "dsp_main::@280f9fa8b8237e444cb0",
+					"jsonFile" : "target-dsp_main-Release-9e2971060735535ef375.json",
+					"name" : "dsp_main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 15,
+					"id" : "fft_pairs::@75092ad1a759fa208284",
+					"jsonFile" : "target-fft_pairs-Release-b6cdf28b0abc4944b169.json",
+					"name" : "fft_pairs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 18,
+					"id" : "filter_compare::@48ce1e27a7bcce1b8fca",
+					"jsonFile" : "target-filter_compare-Release-55e97584c9ceb9cc10ba.json",
+					"name" : "filter_compare",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "fmt::@9964d956d591922f2692",
+					"jsonFile" : "target-fmt-Release-aeea879457e18c3a5428.json",
+					"name" : "fmt",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "glfw::@7b956ab5184761c1e712",
+					"jsonFile" : "target-glfw-Release-e36dd1436df41cd47944.json",
+					"name" : "glfw",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "imgui::@cd1718f917b968e4fb2b",
+					"jsonFile" : "target-imgui-Release-9bf6ae079bf7e61da203.json",
+					"name" : "imgui",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 21,
+					"id" : "kfr_eval::@27ecdc1fc2e223f896bd",
+					"jsonFile" : "target-kfr_eval-Release-7fdf36cf461a685571ba.json",
+					"name" : "kfr_eval",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "kfr_io::@536edcef2844973289c1",
+					"jsonFile" : "target-kfr_io-Release-518ade56011e65470dd3.json",
+					"name" : "kfr_io",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 17,
+					"id" : "moving_average_filter::@4637b8570b071d89b753",
+					"jsonFile" : "target-moving_average_filter-Release-1a52adaf36efbad6f66e.json",
+					"name" : "moving_average_filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 20,
+					"id" : "profiling::@584c1bb1910bf40042b9",
+					"jsonFile" : "target-profiling-Release-c6aec522df0764910575.json",
+					"name" : "profiling",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 19,
+					"id" : "recursive_filters::@3cb71c79acf66e397439",
+					"jsonFile" : "target-recursive_filters-Release-903d34a70b3142f14985.json",
+					"name" : "recursive_filters",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 14,
+					"id" : "sinc_filter::@371c852bb5f2fd1b93b2",
+					"jsonFile" : "target-sinc_filter-Release-fa6ec4805f2388754704.json",
+					"name" : "sinc_filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "test::@189a5d48883b07679853",
+					"jsonFile" : "target-test-Release-ad5de3c170ae67755577.json",
+					"name" : "test",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "uninstall::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-uninstall-Release-076d30aab0e1ee5092f7.json",
+					"name" : "uninstall",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "update_mappings::@7b956ab5184761c1e712",
+					"jsonFile" : "target-update_mappings-Release-764ef8aa5894008b7920.json",
+					"name" : "update_mappings",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "vui::@1c666a6d898ed4b5689b",
+					"jsonFile" : "target-vui-Release-d0c9a8eb4ab4518f3053.json",
+					"name" : "vui",
+					"projectIndex" : 3
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						12,
+						13
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-MinSizeRel-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						7
+					]
+				},
+				{
+					"build" : "dependencies",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						11
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies-MinSizeRel-213773dd22be3796fa39.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "dependencies"
+				},
+				{
+					"build" : "dependencies/fmt",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.fmt-MinSizeRel-fb4ecc9b26e0915d409e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "dependencies/fmt",
+					"targetIndexes" : 
+					[
+						4,
+						15
+					]
+				},
+				{
+					"build" : "dependencies/portaudio",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.portaudio-MinSizeRel-c00eadb7632fdfaba1e0.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "dependencies/portaudio",
+					"targetIndexes" : 
+					[
+						0,
+						6,
+						25
+					]
+				},
+				{
+					"build" : "dependencies/vui",
+					"childIndexes" : 
+					[
+						5,
+						9,
+						10
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui-MinSizeRel-de36453ce1e4a95cda9a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies",
+					"childIndexes" : 
+					[
+						6
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies-MinSizeRel-80ea0be520fce3947636.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/dependencies",
+					"targetIndexes" : 
+					[
+						17
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw",
+					"childIndexes" : 
+					[
+						7,
+						8
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw-MinSizeRel-01ca24f8286e79b9eb0b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 5,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw.src-MinSizeRel-2778583916123fe11517.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw/src",
+					"targetIndexes" : 
+					[
+						16,
+						26
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw/docs",
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw.docs-MinSizeRel-0becbab9ff52c315b033.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw/docs",
+					"targetIndexes" : 
+					[
+						10
+					]
+				},
+				{
+					"build" : "dependencies/vui/src",
+					"jsonFile" : "directory-dependencies.vui.src-MinSizeRel-09e08c6e31be102034c7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/src",
+					"targetIndexes" : 
+					[
+						27
+					]
+				},
+				{
+					"build" : "dependencies/vui/test",
+					"jsonFile" : "directory-dependencies.vui.test-MinSizeRel-25a0e77eb473e988127d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/test",
+					"targetIndexes" : 
+					[
+						24
+					]
+				},
+				{
+					"build" : "dependencies/kfr",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.kfr-MinSizeRel-09bf331ed8b780ea6e7d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 5,
+					"source" : "dependencies/kfr",
+					"targetIndexes" : 
+					[
+						5,
+						9,
+						19
+					]
+				},
+				{
+					"build" : "dsp",
+					"jsonFile" : "directory-dsp-MinSizeRel-806c511b3972120acb7e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "dsp",
+					"targetIndexes" : 
+					[
+						11,
+						12
+					]
+				},
+				{
+					"build" : "eval",
+					"childIndexes" : 
+					[
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21
+					],
+					"jsonFile" : "directory-eval-MinSizeRel-8a4ed558bec26ca4844e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "eval"
+				},
+				{
+					"build" : "eval/windowed_sinc_filter",
+					"jsonFile" : "directory-eval.windowed_sinc_filter-MinSizeRel-e405f8fc70ce4f79805c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/windowed_sinc_filter",
+					"targetIndexes" : 
+					[
+						23
+					]
+				},
+				{
+					"build" : "eval/fft_pairs",
+					"jsonFile" : "directory-eval.fft_pairs-MinSizeRel-60a9d6df2781d3db8dd7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/fft_pairs",
+					"targetIndexes" : 
+					[
+						13
+					]
+				},
+				{
+					"build" : "eval/clt",
+					"jsonFile" : "directory-eval.clt-MinSizeRel-db2f4a529f8610f001f1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/clt",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "eval/moving_average_filter_demo",
+					"jsonFile" : "directory-eval.moving_average_filter_demo-MinSizeRel-206198f0ba1cf2edb660.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/moving_average_filter_demo",
+					"targetIndexes" : 
+					[
+						20
+					]
+				},
+				{
+					"build" : "eval/filter_compare",
+					"jsonFile" : "directory-eval.filter_compare-MinSizeRel-0e225d91093e0fdbcdcb.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/filter_compare",
+					"targetIndexes" : 
+					[
+						14
+					]
+				},
+				{
+					"build" : "eval/recursive_filters",
+					"jsonFile" : "directory-eval.recursive_filters-MinSizeRel-2da95dc3a0b95462056e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/recursive_filters",
+					"targetIndexes" : 
+					[
+						22
+					]
+				},
+				{
+					"build" : "eval/profiling",
+					"jsonFile" : "directory-eval.profiling-MinSizeRel-549afaff51181822acf1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/profiling",
+					"targetIndexes" : 
+					[
+						21
+					]
+				},
+				{
+					"build" : "eval/kfr_eval",
+					"jsonFile" : "directory-eval.kfr_eval-MinSizeRel-982557f84a2275f2b102.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/kfr_eval",
+					"targetIndexes" : 
+					[
+						18
+					]
+				}
+			],
+			"name" : "MinSizeRel",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						5
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21
+					],
+					"name" : "dsp",
+					"targetIndexes" : 
+					[
+						1,
+						7,
+						8,
+						11,
+						12,
+						13,
+						14,
+						18,
+						20,
+						21,
+						22,
+						23
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "FMT",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4,
+						15
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "PortAudio",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						6,
+						25
+					]
+				},
+				{
+					"childIndexes" : 
+					[
+						4
+					],
+					"directoryIndexes" : 
+					[
+						4,
+						5,
+						9,
+						10
+					],
+					"name" : "vui",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3,
+						17,
+						24,
+						27
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6,
+						7,
+						8
+					],
+					"name" : "GLFW",
+					"parentIndex" : 3,
+					"targetIndexes" : 
+					[
+						2,
+						10,
+						16,
+						26
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						11
+					],
+					"name" : "kfr",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						5,
+						9,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "ALL_BUILD::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-70cf843b9771690f80e0.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-34c0ad1b8f695dfada9c.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "ALL_BUILD::@ae3b17e5d4d52308e3a4",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-cbbaad62577d7106a146.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ALL_BUILD::@6e29c0fd1df4a4c1be7b",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-fb7bf88d9836b4cdde98.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@9964d956d591922f2692",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-53890a5671bc20adc058.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "ALL_BUILD::@536edcef2844973289c1",
+					"jsonFile" : "target-ALL_BUILD-MinSizeRel-cba6ae684ff57bf33473.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "PortAudio::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-PortAudio-MinSizeRel-ba8daf020b2f30ac6db6.json",
+					"name" : "PortAudio",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-MinSizeRel-10dfbdef01879a8730d9.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 16,
+					"id" : "clt::@70d4d247d4ab24c45377",
+					"jsonFile" : "target-clt-MinSizeRel-eef89ab3838240ae1910.json",
+					"name" : "clt",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "detect_cpu::@536edcef2844973289c1",
+					"jsonFile" : "target-detect_cpu-MinSizeRel-7d07b91e71b7128d6255.json",
+					"name" : "detect_cpu",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "docs::@bfd1558c92c1a17cc44c",
+					"jsonFile" : "target-docs-MinSizeRel-77d06a773223c62aa3b1.json",
+					"name" : "docs",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "dsp::@280f9fa8b8237e444cb0",
+					"jsonFile" : "target-dsp-MinSizeRel-13225f8c8bf0f5c311f9.json",
+					"name" : "dsp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "dsp_main::@280f9fa8b8237e444cb0",
+					"jsonFile" : "target-dsp_main-MinSizeRel-124537d7dccdcceb3d14.json",
+					"name" : "dsp_main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 15,
+					"id" : "fft_pairs::@75092ad1a759fa208284",
+					"jsonFile" : "target-fft_pairs-MinSizeRel-f34616a5060d1578dd9d.json",
+					"name" : "fft_pairs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 18,
+					"id" : "filter_compare::@48ce1e27a7bcce1b8fca",
+					"jsonFile" : "target-filter_compare-MinSizeRel-d51f57d6b84bc467112f.json",
+					"name" : "filter_compare",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "fmt::@9964d956d591922f2692",
+					"jsonFile" : "target-fmt-MinSizeRel-e2c61e117606fcf01d24.json",
+					"name" : "fmt",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "glfw::@7b956ab5184761c1e712",
+					"jsonFile" : "target-glfw-MinSizeRel-b1d482b916a561b04eb1.json",
+					"name" : "glfw",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "imgui::@cd1718f917b968e4fb2b",
+					"jsonFile" : "target-imgui-MinSizeRel-1e9ff0465222f2e92df3.json",
+					"name" : "imgui",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 21,
+					"id" : "kfr_eval::@27ecdc1fc2e223f896bd",
+					"jsonFile" : "target-kfr_eval-MinSizeRel-2adac772a11afb0f76f9.json",
+					"name" : "kfr_eval",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "kfr_io::@536edcef2844973289c1",
+					"jsonFile" : "target-kfr_io-MinSizeRel-8b5d99a2ac451769aac6.json",
+					"name" : "kfr_io",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 17,
+					"id" : "moving_average_filter::@4637b8570b071d89b753",
+					"jsonFile" : "target-moving_average_filter-MinSizeRel-9c0b67e2dadec6b3d254.json",
+					"name" : "moving_average_filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 20,
+					"id" : "profiling::@584c1bb1910bf40042b9",
+					"jsonFile" : "target-profiling-MinSizeRel-c021c37ca0eb04106ec8.json",
+					"name" : "profiling",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 19,
+					"id" : "recursive_filters::@3cb71c79acf66e397439",
+					"jsonFile" : "target-recursive_filters-MinSizeRel-3cfcb11f47a328b43dee.json",
+					"name" : "recursive_filters",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 14,
+					"id" : "sinc_filter::@371c852bb5f2fd1b93b2",
+					"jsonFile" : "target-sinc_filter-MinSizeRel-a8fd7cb38bf37ca46a8c.json",
+					"name" : "sinc_filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "test::@189a5d48883b07679853",
+					"jsonFile" : "target-test-MinSizeRel-244021befc62564554c5.json",
+					"name" : "test",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "uninstall::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-uninstall-MinSizeRel-076d30aab0e1ee5092f7.json",
+					"name" : "uninstall",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "update_mappings::@7b956ab5184761c1e712",
+					"jsonFile" : "target-update_mappings-MinSizeRel-764ef8aa5894008b7920.json",
+					"name" : "update_mappings",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "vui::@1c666a6d898ed4b5689b",
+					"jsonFile" : "target-vui-MinSizeRel-93cea5bb159af7b30ca9.json",
+					"name" : "vui",
+					"projectIndex" : 3
+				}
+			]
+		},
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						12,
+						13
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-.-RelWithDebInfo-d0094a50bb2071803777.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"projectIndex" : 0,
+					"source" : ".",
+					"targetIndexes" : 
+					[
+						1,
+						7
+					]
+				},
+				{
+					"build" : "dependencies",
+					"childIndexes" : 
+					[
+						2,
+						3,
+						4,
+						11
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies-RelWithDebInfo-213773dd22be3796fa39.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "dependencies"
+				},
+				{
+					"build" : "dependencies/fmt",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.fmt-RelWithDebInfo-c8b54ba870d5c8ab62fe.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.8"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 1,
+					"source" : "dependencies/fmt",
+					"targetIndexes" : 
+					[
+						4,
+						15
+					]
+				},
+				{
+					"build" : "dependencies/portaudio",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.portaudio-RelWithDebInfo-76266343d23c9f8a3cdc.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.1.0"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 2,
+					"source" : "dependencies/portaudio",
+					"targetIndexes" : 
+					[
+						0,
+						6,
+						25
+					]
+				},
+				{
+					"build" : "dependencies/vui",
+					"childIndexes" : 
+					[
+						5,
+						9,
+						10
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui-RelWithDebInfo-de36453ce1e4a95cda9a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies",
+					"childIndexes" : 
+					[
+						6
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies-RelWithDebInfo-80ea0be520fce3947636.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/dependencies",
+					"targetIndexes" : 
+					[
+						17
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw",
+					"childIndexes" : 
+					[
+						7,
+						8
+					],
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw-RelWithDebInfo-01ca24f8286e79b9eb0b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 5,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw/src",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw.src-RelWithDebInfo-16edfa830b7fd81cb2dc.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw/src",
+					"targetIndexes" : 
+					[
+						16,
+						26
+					]
+				},
+				{
+					"build" : "dependencies/vui/dependencies/glfw/docs",
+					"jsonFile" : "directory-dependencies.vui.dependencies.glfw.docs-RelWithDebInfo-0becbab9ff52c315b033.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.4"
+					},
+					"parentIndex" : 6,
+					"projectIndex" : 4,
+					"source" : "dependencies/vui/dependencies/glfw/docs",
+					"targetIndexes" : 
+					[
+						10
+					]
+				},
+				{
+					"build" : "dependencies/vui/src",
+					"jsonFile" : "directory-dependencies.vui.src-RelWithDebInfo-09e08c6e31be102034c7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/src",
+					"targetIndexes" : 
+					[
+						27
+					]
+				},
+				{
+					"build" : "dependencies/vui/test",
+					"jsonFile" : "directory-dependencies.vui.test-RelWithDebInfo-25a0e77eb473e988127d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.20"
+					},
+					"parentIndex" : 4,
+					"projectIndex" : 3,
+					"source" : "dependencies/vui/test",
+					"targetIndexes" : 
+					[
+						24
+					]
+				},
+				{
+					"build" : "dependencies/kfr",
+					"hasInstallRule" : true,
+					"jsonFile" : "directory-dependencies.kfr-RelWithDebInfo-2b3b697e687d430deab1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 1,
+					"projectIndex" : 5,
+					"source" : "dependencies/kfr",
+					"targetIndexes" : 
+					[
+						5,
+						9,
+						19
+					]
+				},
+				{
+					"build" : "dsp",
+					"jsonFile" : "directory-dsp-RelWithDebInfo-806c511b3972120acb7e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "dsp",
+					"targetIndexes" : 
+					[
+						11,
+						12
+					]
+				},
+				{
+					"build" : "eval",
+					"childIndexes" : 
+					[
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21
+					],
+					"jsonFile" : "directory-eval-RelWithDebInfo-8a4ed558bec26ca4844e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "eval"
+				},
+				{
+					"build" : "eval/windowed_sinc_filter",
+					"jsonFile" : "directory-eval.windowed_sinc_filter-RelWithDebInfo-e405f8fc70ce4f79805c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/windowed_sinc_filter",
+					"targetIndexes" : 
+					[
+						23
+					]
+				},
+				{
+					"build" : "eval/fft_pairs",
+					"jsonFile" : "directory-eval.fft_pairs-RelWithDebInfo-60a9d6df2781d3db8dd7.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/fft_pairs",
+					"targetIndexes" : 
+					[
+						13
+					]
+				},
+				{
+					"build" : "eval/clt",
+					"jsonFile" : "directory-eval.clt-RelWithDebInfo-db2f4a529f8610f001f1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/clt",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "eval/moving_average_filter_demo",
+					"jsonFile" : "directory-eval.moving_average_filter_demo-RelWithDebInfo-206198f0ba1cf2edb660.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/moving_average_filter_demo",
+					"targetIndexes" : 
+					[
+						20
+					]
+				},
+				{
+					"build" : "eval/filter_compare",
+					"jsonFile" : "directory-eval.filter_compare-RelWithDebInfo-0e225d91093e0fdbcdcb.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/filter_compare",
+					"targetIndexes" : 
+					[
+						14
+					]
+				},
+				{
+					"build" : "eval/recursive_filters",
+					"jsonFile" : "directory-eval.recursive_filters-RelWithDebInfo-2da95dc3a0b95462056e.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/recursive_filters",
+					"targetIndexes" : 
+					[
+						22
+					]
+				},
+				{
+					"build" : "eval/profiling",
+					"jsonFile" : "directory-eval.profiling-RelWithDebInfo-549afaff51181822acf1.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/profiling",
+					"targetIndexes" : 
+					[
+						21
+					]
+				},
+				{
+					"build" : "eval/kfr_eval",
+					"jsonFile" : "directory-eval.kfr_eval-RelWithDebInfo-982557f84a2275f2b102.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.22"
+					},
+					"parentIndex" : 13,
+					"projectIndex" : 0,
+					"source" : "eval/kfr_eval",
+					"targetIndexes" : 
+					[
+						18
+					]
+				}
+			],
+			"name" : "RelWithDebInfo",
+			"projects" : 
+			[
+				{
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						5
+					],
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19,
+						20,
+						21
+					],
+					"name" : "dsp",
+					"targetIndexes" : 
+					[
+						1,
+						7,
+						8,
+						11,
+						12,
+						13,
+						14,
+						18,
+						20,
+						21,
+						22,
+						23
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						2
+					],
+					"name" : "FMT",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						4,
+						15
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						3
+					],
+					"name" : "PortAudio",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						0,
+						6,
+						25
+					]
+				},
+				{
+					"childIndexes" : 
+					[
+						4
+					],
+					"directoryIndexes" : 
+					[
+						4,
+						5,
+						9,
+						10
+					],
+					"name" : "vui",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						3,
+						17,
+						24,
+						27
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						6,
+						7,
+						8
+					],
+					"name" : "GLFW",
+					"parentIndex" : 3,
+					"targetIndexes" : 
+					[
+						2,
+						10,
+						16,
+						26
+					]
+				},
+				{
+					"directoryIndexes" : 
+					[
+						11
+					],
+					"name" : "kfr",
+					"parentIndex" : 0,
+					"targetIndexes" : 
+					[
+						5,
+						9,
+						19
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 3,
+					"id" : "ALL_BUILD::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-70cf843b9771690f80e0.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ALL_BUILD::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-34c0ad1b8f695dfada9c.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "ALL_BUILD::@ae3b17e5d4d52308e3a4",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-cbbaad62577d7106a146.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "ALL_BUILD::@6e29c0fd1df4a4c1be7b",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-fb7bf88d9836b4cdde98.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "ALL_BUILD::@9964d956d591922f2692",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-53890a5671bc20adc058.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "ALL_BUILD::@536edcef2844973289c1",
+					"jsonFile" : "target-ALL_BUILD-RelWithDebInfo-cba6ae684ff57bf33473.json",
+					"name" : "ALL_BUILD",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "PortAudio::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-PortAudio-RelWithDebInfo-c11c58c485378f09bdc8.json",
+					"name" : "PortAudio",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 0,
+					"id" : "ZERO_CHECK::@6890427a1f51a3e7e1df",
+					"jsonFile" : "target-ZERO_CHECK-RelWithDebInfo-10dfbdef01879a8730d9.json",
+					"name" : "ZERO_CHECK",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 16,
+					"id" : "clt::@70d4d247d4ab24c45377",
+					"jsonFile" : "target-clt-RelWithDebInfo-fe2270c96a040f43c55c.json",
+					"name" : "clt",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "detect_cpu::@536edcef2844973289c1",
+					"jsonFile" : "target-detect_cpu-RelWithDebInfo-2ede074066770b81674a.json",
+					"name" : "detect_cpu",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "docs::@bfd1558c92c1a17cc44c",
+					"jsonFile" : "target-docs-RelWithDebInfo-77d06a773223c62aa3b1.json",
+					"name" : "docs",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "dsp::@280f9fa8b8237e444cb0",
+					"jsonFile" : "target-dsp-RelWithDebInfo-0dc15e4cb3fa5160b419.json",
+					"name" : "dsp",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "dsp_main::@280f9fa8b8237e444cb0",
+					"jsonFile" : "target-dsp_main-RelWithDebInfo-761d2f498c3772a1c3e0.json",
+					"name" : "dsp_main",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 15,
+					"id" : "fft_pairs::@75092ad1a759fa208284",
+					"jsonFile" : "target-fft_pairs-RelWithDebInfo-2114183bf1d9e8fa60a3.json",
+					"name" : "fft_pairs",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 18,
+					"id" : "filter_compare::@48ce1e27a7bcce1b8fca",
+					"jsonFile" : "target-filter_compare-RelWithDebInfo-534e76502a408055edfa.json",
+					"name" : "filter_compare",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "fmt::@9964d956d591922f2692",
+					"jsonFile" : "target-fmt-RelWithDebInfo-279142d3b95ffe515799.json",
+					"name" : "fmt",
+					"projectIndex" : 1
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "glfw::@7b956ab5184761c1e712",
+					"jsonFile" : "target-glfw-RelWithDebInfo-ec3edf43bb4944491264.json",
+					"name" : "glfw",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 5,
+					"id" : "imgui::@cd1718f917b968e4fb2b",
+					"jsonFile" : "target-imgui-RelWithDebInfo-83364e54b0b6b22abe3d.json",
+					"name" : "imgui",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 21,
+					"id" : "kfr_eval::@27ecdc1fc2e223f896bd",
+					"jsonFile" : "target-kfr_eval-RelWithDebInfo-1791db1b768972fec12a.json",
+					"name" : "kfr_eval",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "kfr_io::@536edcef2844973289c1",
+					"jsonFile" : "target-kfr_io-RelWithDebInfo-e4706b999e31e5dbabea.json",
+					"name" : "kfr_io",
+					"projectIndex" : 5
+				},
+				{
+					"directoryIndex" : 17,
+					"id" : "moving_average_filter::@4637b8570b071d89b753",
+					"jsonFile" : "target-moving_average_filter-RelWithDebInfo-e19610480b02ca302e1a.json",
+					"name" : "moving_average_filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 20,
+					"id" : "profiling::@584c1bb1910bf40042b9",
+					"jsonFile" : "target-profiling-RelWithDebInfo-c8c478972bfb88ea85ba.json",
+					"name" : "profiling",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 19,
+					"id" : "recursive_filters::@3cb71c79acf66e397439",
+					"jsonFile" : "target-recursive_filters-RelWithDebInfo-aa5e2b3bf768c89188d6.json",
+					"name" : "recursive_filters",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 14,
+					"id" : "sinc_filter::@371c852bb5f2fd1b93b2",
+					"jsonFile" : "target-sinc_filter-RelWithDebInfo-17b4c7bd15e5c7eff333.json",
+					"name" : "sinc_filter",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "test::@189a5d48883b07679853",
+					"jsonFile" : "target-test-RelWithDebInfo-4262645ca7381d55dc58.json",
+					"name" : "test",
+					"projectIndex" : 3
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "uninstall::@1a14b82cae9a8816b73d",
+					"jsonFile" : "target-uninstall-RelWithDebInfo-076d30aab0e1ee5092f7.json",
+					"name" : "uninstall",
+					"projectIndex" : 2
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "update_mappings::@7b956ab5184761c1e712",
+					"jsonFile" : "target-update_mappings-RelWithDebInfo-764ef8aa5894008b7920.json",
+					"name" : "update_mappings",
+					"projectIndex" : 4
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "vui::@1c666a6d898ed4b5689b",
+					"jsonFile" : "target-vui-RelWithDebInfo-f095ed5697d038beee3f.json",
+					"name" : "vui",
+					"projectIndex" : 3
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "C:/Users/Josiah Ebhomenye/CLionProjects/dsp/cmake-build-release-visual-studio",
+		"source" : "C:/Users/Josiah Ebhomenye/CLionProjects/dsp"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 4
+	}
+}

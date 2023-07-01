@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "dependencies/vui/dependencies/glfw/docs",
+		"source" : "dependencies/vui/dependencies/glfw/docs"
+	}
+}
