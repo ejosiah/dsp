@@ -14,6 +14,10 @@
 #include <kfr/base.hpp>
 #include <kfr/dsp.hpp>
 #include <kfr/io.hpp>
+#include <chrono>
+
+using namespace kfr;
+
 
 #define ERR_GUARD_PA(err) \
 if(err != paNoError) {    \
@@ -22,12 +26,21 @@ if(err != paNoError) {    \
 }
 
 #define SAMPLE_RATE (44100)
+#define T (1.0/SAMPLE_RATE)
+#define H (2.0 * dsp::PI)
+#define kH (1000 * H)
+#define FRAME_COUNT (256)
 
 enum FilterType { LOW_PASS = 0, HIGH_PASS, BAND_PASS, BAND_REJECT, NUM_FILTERS, NO_FILTER};
+size_t ceil2(const int n){  return 1 << static_cast<size_t>(std::ceil(std::log2(n))); }
+
+using Signal = dsp::SampleBuffer<double>;
+
 
 struct Data{
-    dsp::SampleBuffer<double> impulseResponse;
-    dsp::SampleBuffer<double> frequencyResponse;
+    Signal impulseResponse;
+    Signal frequencyResponse;
+    Signal sFrequencyResponse;
 };
 
 struct Settings{
@@ -38,13 +51,29 @@ struct Settings{
     bool on{false};
 };
 
-using Signal = dsp::SampleBuffer<double>;
 using DataRingBuffer = dsp::RingBuffer<Data, 256>;
 using SettingsRingBuffer = dsp::RingBuffer<Settings, 256>;
 using SignalRingBuffer = dsp::RingBuffer<Signal, 256>;
 
+void computeFFT(Signal& signal, Signal& output, int nFrequency){
+    auto fn = ceil2(nFrequency);
+
+    Signal input(fn);
+    std::memcpy(input.data(), signal.data(), signal.size());
+    std::vector<std::complex<double>> frequency(fn);
+
+    dsp::fft(input.begin(), input.end(), frequency.begin());
+
+    output.clear();
+    for(const auto& c : frequency){
+        output.add(std::abs(c));
+    }
+
+}
+
+
 Data createDate(Settings settings){
-    constexpr int N = 511;
+    constexpr int N = 1024;
     dsp::SampleBuffer<double> impulse(N);
     impulse[N/2] = 1;
 
@@ -79,9 +108,17 @@ struct Channels{
 dsp::RingBuffer<dsp::SampleBuffer<double>, 256> noiseBuffer;
 
 struct AudioData {
-    SignalRingBuffer* signal;
-    SettingsRingBuffer* settings;
+    SignalRingBuffer* signal{};
+    SettingsRingBuffer* settings{};
+    std::array<long long , 100> runtime{};
+    int instance{0};
+    float avgRuntime{0};
 };
+constexpr int Duration = 10; // seconds
+constexpr int MaxSamples = SAMPLE_RATE * Duration;
+
+Signal gSignal(MaxSamples);
+Signal gSignalCopy;
 
 static int paNoiseCallback(const void *inputBuffer,
                            void *outputBuffer,
@@ -89,17 +126,21 @@ static int paNoiseCallback(const void *inputBuffer,
                            const PaStreamCallbackTimeInfo* timeInfo,
                            PaStreamCallbackFlags statusFlags,
                            void *userData ){
-
+    auto start = std::chrono::steady_clock::now();
     static std::default_random_engine engine{std::random_device{}()};
-    static std::uniform_real_distribution<float> dist{-1.f, 1.f};
-    static auto sample = std::bind(dist, engine);
+    static std::normal_distribution<float> dist{0, 2};
+    static double t = 0;
+//    static auto sample = std::bind(dist, engine);
     static Settings settings{};
-//    static auto sample = [state=kfr::random_state{}]() mutable  {
-//        kfr::gen_random_normal<float>(state);
-//    };
+    static int nextSample = 0;
+    static auto sample = [&]() {
+        auto s = gSignal[nextSample++];
+        nextSample %= MaxSamples;
+        return s;
+    };
 
     auto out = reinterpret_cast<Channels*>(outputBuffer);
-    auto data = *reinterpret_cast<AudioData*>(userData);
+    auto& data = *reinterpret_cast<AudioData*>(userData);
     auto& signalBuffer = *data.signal;
     auto& rbSettings = *data.settings;
 
@@ -112,21 +153,17 @@ static int paNoiseCallback(const void *inputBuffer,
         settings = *opt;
     }
 
-    if(settings.on){
-        if(settings.filterType == BAND_PASS){
-            signal = dsp::recursive::bandPassFilter(signal, double(settings.frequency), double (settings.bandwidth));
-        }else if(settings.filterType == BAND_REJECT){
-            signal = dsp::recursive::bandRejectFilter(signal, double(settings.frequency), double (settings.bandwidth));
-        }else if(settings.filterType == LOW_PASS){
-            signal = dsp::recursive::lowPassFilter(signal, double(settings.frequency));
-
-            using namespace kfr;
-            zpk<fbase> filt  = iir_lowpass(chebyshev1<fbase>(8, 2), settings.frequency);
-
-        }else if(settings.filterType == HIGH_PASS){
-            signal = dsp::recursive::highPassFilter(signal, double(settings.frequency));
-        }
-    }
+//    if(settings.on){
+//        if(settings.filterType == BAND_PASS){
+//            signal = dsp::recursive::bandPassFilter(signal, double(settings.frequency), double (settings.bandwidth));
+//        }else if(settings.filterType == BAND_REJECT){
+//            signal = dsp::recursive::bandRejectFilter(signal, double(settings.frequency), double (settings.bandwidth));
+//        }else if(settings.filterType == LOW_PASS){
+//            signal = dsp::recursive::lowPassFilter(signal, double(settings.frequency));
+//        }else if(settings.filterType == HIGH_PASS){
+//            signal = dsp::recursive::highPassFilter(signal, double(settings.frequency));
+//        }
+//    }
 
     for(int i = 0; i < frameCount; i++){
         auto v = signal[i];
@@ -135,6 +172,9 @@ static int paNoiseCallback(const void *inputBuffer,
         out++;
     }
     signalBuffer.push(signal);
+    auto duration = std::chrono::steady_clock::now() - start;
+    data.runtime[data.instance++] = std::chrono::duration_cast<std::chrono::microseconds>(duration).count();
+    data.instance = data.instance%data.runtime.size();
 
     return paContinue;
 }
@@ -144,7 +184,7 @@ PaStream* initAudio(AudioData& audioData){
     ERR_GUARD_PA(Pa_Initialize())
 
     PaStream* stream;
-    ERR_GUARD_PA(Pa_OpenDefaultStream(&stream, 0, 2, paFloat32, SAMPLE_RATE, 256, paNoiseCallback, &audioData))
+    ERR_GUARD_PA(Pa_OpenDefaultStream(&stream, 0, 2, paFloat32, SAMPLE_RATE, FRAME_COUNT, paNoiseCallback, &audioData))
     ERR_GUARD_PA(Pa_StartStream(stream))
 
     return stream;
@@ -167,6 +207,15 @@ int main(int, char**){
     rbAudioSettings.push({});
     rbData.push(createDate({}));
 
+    static std::default_random_engine engine{std::random_device{}()};
+    static std::normal_distribution<float> dist{0, 2};
+    static double t = 0;
+    static auto sample = std::bind(dist, engine);
+
+    std::generate(gSignal.begin(), gSignal.end(), [&]{ return sample(); });
+    gSignalCopy = gSignal;
+    AudioData audioData{&rbSignal, &rbAudioSettings};
+
     vui::show(config, [&]{
 
         static Settings settings{};
@@ -181,7 +230,7 @@ int main(int, char**){
         }
 
         ImGui::Begin("Recursive filters");
-        ImGui::SetWindowSize({1100, 1100});
+        ImGui::SetWindowSize({1100, 1200});
 
         dirty |= ImGui::Combo("filter", &settings.filterType, filters.data(), filters.size());
         ImGui::SameLine();
@@ -200,10 +249,17 @@ int main(int, char**){
 
         if(auto optSignal = rbSignal.poll()){
             signal = *optSignal;
+            computeFFT(signal, data.sFrequencyResponse, SAMPLE_RATE);
         }
 
-        if(ImPlot::BeginPlot("Signal", {1010, 500})){
+        if(ImPlot::BeginPlot("Signal", {500, 500})){
             ImPlot::PlotLine("Signal", signal.data(), signal.size());
+            ImPlot::EndPlot();
+            ImGui::SameLine();
+        }
+
+        if(ImPlot::BeginPlot("Signal FFT", {500, 500})){
+            ImPlot::PlotLine("FFT", data.sFrequencyResponse.data(), data.sFrequencyResponse.size()/2);
             ImPlot::EndPlot();
         }
 
@@ -213,6 +269,7 @@ int main(int, char**){
         }
 
         dirty |= ImGui::SliderFloat("volume", &settings.volume, 0.01, 1.0);
+        ImGui::Text("audio callback runtime %s microseconds", std::to_string(audioData.avgRuntime).c_str());
 
         ImGui::End();
 
@@ -223,18 +280,41 @@ int main(int, char**){
 
     });
 
-    AudioData audioData{&rbSignal, &rbAudioSettings};
 
     auto audioStream = initAudio(audioData);
-
+    auto time = std::chrono::steady_clock::now();
     while(true){
-        if(auto optSettings = rbSettings.poll()){
+        if (auto optSettings = rbSettings.poll()) {
             auto settings = *optSettings;
+
+            if (settings.on) {
+                if (settings.filterType == BAND_PASS) {
+                    gSignal = dsp::recursive::bandPassFilter(gSignalCopy, double(settings.frequency),
+                                                            double(settings.bandwidth));
+                } else if (settings.filterType == BAND_REJECT) {
+                    gSignal = dsp::recursive::bandRejectFilter(gSignalCopy, double(settings.frequency),
+                                                              double(settings.bandwidth));
+                } else if (settings.filterType == LOW_PASS) {
+                    gSignal = dsp::recursive::lowPassFilter(gSignalCopy, double(settings.frequency));
+
+                } else if (settings.filterType == HIGH_PASS) {
+                    gSignal = dsp::recursive::highPassFilter(gSignalCopy, double(settings.frequency));
+                }
+            }
+
             rbAudioSettings.push(settings);
             rbData.push(createDate(settings));
         }
         if(!vui::isRunning()){
             break;
+        }
+
+        auto now = std::chrono::steady_clock::now();
+        auto elapsedTime = now - time;
+        if(std::chrono::duration_cast<std::chrono::seconds>(elapsedTime) >= std::chrono::seconds(1)){
+            time = now;
+            auto sum = static_cast<float>(std::accumulate(audioData.runtime.begin(), audioData.runtime.end(), 0LL));
+            audioData.avgRuntime = sum/audioData.runtime.size();
         }
     }
 

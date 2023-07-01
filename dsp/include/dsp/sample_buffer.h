@@ -77,7 +77,7 @@ namespace dsp {
             m_data.clear();
         }
 
-        void resize(int size) noexcept {
+        void resize(size_t size) noexcept {
             m_data.resize(size);
         }
 
