@@ -4,22 +4,28 @@
 #include <type_traits>
 #include <cstddef>
 #include <cassert>
+#include <cmath>
 
 namespace dsp {
 
     template<typename SampleType>
     class SampleBufferView;
 
-    template<typename SampleType>
+    template<typename SampleType, bool Circular = false, size_t Capacity = 0>
     class SampleBuffer {
     public:
         friend class SampleBufferView<SampleType>;
 
         SampleBuffer() {
             static_assert(std::is_floating_point_v<SampleType>, "SampleType should be floating point type");
+            if constexpr (Circular){
+                if(m_data.empty() || m_data.size() < Capacity){
+                    m_data.resize(Capacity);
+                }
+            }
         }
 
-        SampleBuffer(const SampleBuffer<SampleType>& other)
+        SampleBuffer(const SampleBuffer<SampleType, Circular>& other)
                 :SampleBuffer(other.m_data.begin(), other.m_data.end())
         {}
 
@@ -36,18 +42,19 @@ namespace dsp {
             m_data = std::vector<SampleType>(size, val);
         }
 
-        SampleBuffer(size_t size)
+        explicit SampleBuffer(size_t size)
                 :SampleBuffer()
         {
             m_data = std::vector<SampleType>(size);
         }
 
+        template<typename = std::enable_if<!Circular>>
         void add(SampleType sample){
             m_data.push_back(sample);
         }
 
-        template<typename SampleTypeB>
-        void add(const SampleBuffer<SampleTypeB>& buffer) {
+        template<typename SampleTypeB, bool CircularB, typename = std::enable_if<std::is_same_v<SampleType, SampleTypeB>>, typename = std::enable_if<!Circular>>
+        void add(const SampleBuffer<SampleTypeB, CircularB>& buffer) {
             auto offset = m_data.size();
             m_data.resize(m_data.size() + buffer.size());
             std::memcpy(m_data.data() + offset, buffer.m_data.data(), buffer.size());
@@ -58,10 +65,20 @@ namespace dsp {
         }
 
         const SampleType& operator[](const int idx) const {
-            return m_data[idx];
+            auto index = idx;
+            if constexpr (Circular){
+                const auto size = m_data.size();
+                index = std::abs(size - index)%size;
+            }
+            return m_data[index];
         }
 
         SampleType& operator[](const int idx) {
+            auto index = idx;
+            if constexpr (Circular){
+                const auto size = m_data.size();
+                index = std::abs(size - index)%size;
+            }
             return m_data[idx];
         }
 
@@ -148,16 +165,19 @@ namespace dsp {
         const SampleType* m_last;
     };
 
-    template<typename SampleType>
-    SampleBufferView<SampleType> SampleBuffer<SampleType>::view(size_t start, size_t size) {
+    template<typename SampleType, bool Circular, size_t Capacity>
+    SampleBufferView<SampleType> SampleBuffer<SampleType, Circular, Capacity>::view(size_t start, size_t size) {
         assert(start >= 0 && start < m_data.size());
         assert(size > start && size <= m_data.size());
-        return SampleBuffer<SampleType>(m_data.data() + start, m_data.data() + size);
+        return SampleBuffer<SampleType, Circular>(m_data.data() + start, m_data.data() + size);
     }
 
-    template<typename SampleType>
-    using Signal = SampleBuffer<SampleType>;
+    template<typename SampleType, size_t Capacity>
+    using CircularBuffer = SampleBuffer<SampleType, true, Capacity>;
 
-    template<typename SampleType>
-    using Kernel = SampleBuffer<SampleType>;
+    template<typename SampleType, bool Circular>
+    using Signal = SampleBuffer<SampleType, Circular>;
+
+    template<typename SampleType, bool Circular>
+    using Kernel = SampleBuffer<SampleType, Circular>;
 }
