@@ -4,7 +4,6 @@
 #include <implot.h>
 #include <dsp/fft.h>
 #include <vui/blocking_queue.h>
-#include <dsp/chebyshev.h>
 #include <array>
 #include <iostream>
 #include <dsp/ring_buffer.h>
@@ -80,13 +79,17 @@ Data createDate(Settings settings){
     dsp::SampleBuffer<double> impulseResponse;
 
     if(settings.filterType == BAND_PASS){
-        impulseResponse = dsp::recursive::bandPassFilter(impulse, double(settings.frequency), double (settings.bandwidth));
+        auto filter = dsp::recursive::bandPassFilter(settings.frequency, settings.bandwidth);
+        impulseResponse = filter(impulse);
     }else if(settings.filterType == BAND_REJECT){
-        impulseResponse = dsp::recursive::bandRejectFilter(impulse, double(settings.frequency), double (settings.bandwidth));
+        auto filter = dsp::recursive::bandRejectFilter(settings.frequency, settings.bandwidth);
+        impulseResponse = filter(impulse);
     }else if(settings.filterType == LOW_PASS){
-        impulseResponse = dsp::recursive::lowPassFilter(impulse, double(settings.frequency));
+        auto filter = dsp::recursive::lowPassFilter(settings.frequency);
+        impulseResponse = filter(impulse);
     }else if(settings.filterType == HIGH_PASS){
-        impulseResponse = dsp::recursive::highPassFilter(impulse, double(settings.frequency));
+        auto filter = dsp::recursive::highPassFilter(settings.frequency);
+        impulseResponse = filter(impulse);
     }
 
     std::vector<std::complex<double>> freq(impulseResponse.size() + 1);
@@ -289,16 +292,18 @@ int main(int, char**){
 
             if (settings.on) {
                 if (settings.filterType == BAND_PASS) {
-                    gSignal = dsp::recursive::bandPassFilter(gSignalCopy, double(settings.frequency),
-                                                            double(settings.bandwidth));
+                    auto filter = dsp::recursive::bandPassFilter(settings.frequency, settings.bandwidth);
+                    gSignal = filter(gSignalCopy);
                 } else if (settings.filterType == BAND_REJECT) {
-                    gSignal = dsp::recursive::bandRejectFilter(gSignalCopy, double(settings.frequency),
-                                                              double(settings.bandwidth));
+                    auto filter = dsp::recursive::bandRejectFilter(settings.frequency, settings.bandwidth);
+                    gSignal = filter(gSignalCopy);
                 } else if (settings.filterType == LOW_PASS) {
-                    gSignal = dsp::recursive::lowPassFilter(gSignalCopy, double(settings.frequency));
+                    auto filter = dsp::recursive::lowPassFilter(settings.frequency);
+                    gSignal = filter(gSignalCopy);
 
                 } else if (settings.filterType == HIGH_PASS) {
-                    gSignal = dsp::recursive::highPassFilter(gSignalCopy, double(settings.frequency));
+                    auto filter = dsp::recursive::highPassFilter(settings.frequency);
+                    gSignal = filter(gSignalCopy);
                 }
             }
 

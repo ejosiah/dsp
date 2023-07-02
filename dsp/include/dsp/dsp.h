@@ -19,16 +19,6 @@ namespace dsp {
 
     enum class InversionType : int { SpectralInversion, SpectralReversal, None};
 
-    template<size_t Poles>
-    struct Coefficients {
-        std::array<double, Poles + 1u> a;
-        std::array<double, Poles + 1u> b;
-    };
-
-    using BiQuad = Coefficients<2>;
-    using TwoPoleCoefficients = Coefficients<2>;
-    using FourPoleCoefficients = Coefficients<4>;
-    using SixPoleCoefficients = Coefficients<6>;
 
     struct Windows {
 
