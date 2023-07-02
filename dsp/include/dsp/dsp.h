@@ -7,18 +7,28 @@
 #include <functional>
 #include <deque>
 #include <ostream>
+#include <array>
 
 namespace dsp {
 
     enum class Domain : int { Time = 0, Spacial, Frequency};
-
-    using Coefficients = std::vector<double>;
 
     enum class FilterType : int { LowPass, HighPass };
 
     using Window = std::function<double(size_t, size_t)>;
 
     enum class InversionType : int { SpectralInversion, SpectralReversal, None};
+
+    template<size_t Poles>
+    struct Coefficients {
+        std::array<double, Poles + 1u> a;
+        std::array<double, Poles + 1u> b;
+    };
+
+    using BiQuad = Coefficients<2>;
+    using TwoPoleCoefficients = Coefficients<2>;
+    using FourPoleCoefficients = Coefficients<4>;
+    using SixPoleCoefficients = Coefficients<6>;
 
     struct Windows {
 

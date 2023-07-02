@@ -4,13 +4,16 @@
 #include "dsp.h"
 #include <cmath>
 #include <iostream>
+#include <vector>
 
 namespace dsp {
 
     using Poles = std::tuple<double, double, double, double, double>;
 
     struct chebyshev {
-        static std::tuple<Coefficients, Coefficients> computeCoefficients(FilterType filter, double passBandRipple, int poles, double cutoffFrequency);
+
+        template<size_t Poles>
+        static Coefficients<Poles> computeCoefficients(FilterType filter, double passBandRipple, double cutoffFrequency);
 
     private:
         static Poles computePoles(FilterType filter, double passBandRipple, int numPoles, int pole, double cutoffFrequency);
@@ -18,23 +21,25 @@ namespace dsp {
     };
 
 
-    std::tuple<Coefficients, Coefficients> chebyshev::computeCoefficients(FilterType filter, double passBandRipple, int poles, double cutoffFrequency){
+    template<size_t Poles>
+    Coefficients<Poles>
+    chebyshev::computeCoefficients(FilterType filter, double passBandRipple, double cutoffFrequency) {
         assert(cutoffFrequency >= 0.0 && cutoffFrequency <= 0.5);
         assert(passBandRipple >= 0.0 && passBandRipple <= 29.0);
         assert(filter == FilterType::LowPass || filter == FilterType::HighPass);
-        assert(poles % 2 == 0);
-        assert(poles >= 2 && poles <= 20);
+        static_assert(Poles % 2 == 0);
+        static_assert(Poles >= 2 && Poles <= 20);
 
         const auto LH = filter;
         const auto FC = cutoffFrequency;
         const auto PR = passBandRipple;
-        const auto NP = poles;
+        constexpr auto NP = Poles;
 
 
-        Coefficients A(22);
-        Coefficients B(22);
-        Coefficients TA(22);
-        Coefficients TB(22);
+        std::vector<double> A(22);
+        std::vector<double> B(22);
+        std::vector<double> TA(22);
+        std::vector<double> TB(22);
 
         A[2] = 1;
         B[2] = 1;
@@ -80,20 +85,22 @@ namespace dsp {
             A[i] /= gain;
         }
 
-        Coefficients outA(NP + 1);
-        Coefficients outB(NP + 1);
+        std::vector<double> outA(NP + 1);
+        std::vector<double> outB(NP + 1);
+
+        Coefficients<NP> coefficients{};
 
         auto first = A.begin();
         auto last = first;
         std::advance(last, NP + 1);
-        std::copy(first, last, outA.begin());
+        std::copy(first, last, coefficients.a.begin());
 
         first = B.begin();
         last = first;
         std::advance(last, NP + 1);
-        std::copy(first, last, outB.begin());
+        std::copy(first, last, coefficients.b.begin());
 
-        return std::make_tuple(outA, outB);
+        return coefficients;
 
     }
 

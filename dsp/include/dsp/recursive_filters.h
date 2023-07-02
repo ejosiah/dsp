@@ -8,8 +8,10 @@
 
 namespace dsp::recursive {
 
-    template<typename SampleType>
-    SampleBuffer<SampleType> filter(SampleBuffer<SampleType>& input, Coefficients A, Coefficients B){
+    template<typename SampleType, size_t Poles>
+    SampleBuffer<SampleType> filter(SampleBuffer<SampleType>& input, Coefficients<Poles> coefficients){
+        auto& A = coefficients.a;
+        auto& B = coefficients.b;
         assert(B[0] == 0);
         assert(!A.empty());
         assert(!B.empty());
@@ -37,15 +39,15 @@ namespace dsp::recursive {
     template<typename SampleType>
     SampleBuffer<SampleType> lowPassFilter(SampleBuffer<SampleType>& input, SampleType cutoffFrequency){
         assert(cutoffFrequency >= 0 && cutoffFrequency <= 0.5);
-        const auto [A, B] = chebyshev::computeCoefficients(FilterType::LowPass, 0.5, 4, cutoffFrequency);
-        return filter(input, A, B);
+        const auto coeff = chebyshev::computeCoefficients<4>(FilterType::LowPass, 0.5, cutoffFrequency);
+        return filter(input, coeff);
     }
 
     template<typename SampleType>
     SampleBuffer<SampleType> highPassFilter(SampleBuffer<SampleType>& input, SampleType cutoffFrequency){
         assert(cutoffFrequency >= 0 && cutoffFrequency <= 0.5);
-        const auto [A, B] = chebyshev::computeCoefficients(FilterType::HighPass, 0.5, 4, cutoffFrequency);
-        return filter(input, A, B);
+        const auto coeff = chebyshev::computeCoefficients<4>(FilterType::HighPass, 0.5, cutoffFrequency);
+        return filter(input, coeff);
     }
 
     template<typename SampleType>
@@ -56,19 +58,20 @@ namespace dsp::recursive {
         const auto cos2pif = std::cos(2 * PI * cf);
         const auto K = (1 - 2 * R * cos2pif + R * R) / (2 - 2 * cos2pif);
 
-        Coefficients  A{
-            1 - K,
-            2 * (K - R) * cos2pif,
-            R * R - K
+        Coefficients<2> coefficients{
+            {
+                1 - K,
+                2 * (K - R) * cos2pif,
+                R * R - K
+            }
+            ,{
+                0,
+                2 * R * cos2pif,
+                - (R * R)
+            }
         };
 
-        Coefficients  B{
-            0,
-            2 * R * cos2pif,
-            - (R * R)
-        };
-
-        return filter(input, A, B);
+        return filter(input, coefficients);
 
     }
 
@@ -80,19 +83,20 @@ namespace dsp::recursive {
         const auto cos2pif = std::cos(2 * PI * cf);
         const auto K = (1 - 2 * R * cos2pif + R * R) / (2 - 2 * cos2pif);
 
-        Coefficients  A{
-            K,
-            -2 * K * cos2pif,
-            K
+        Coefficients<2> coefficients{
+            {
+                K,
+                -2 * K * cos2pif,
+                K
+            },
+            {
+                0,
+                2 * R * cos2pif,
+               - (R * R)
+            }
         };
 
-        Coefficients  B{
-            0,
-            2 * R * cos2pif,
-           - (R * R)
-        };
-
-        return filter(input, A, B);
+        return filter(input, coefficients);
 
     }
 }
