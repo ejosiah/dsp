@@ -14,8 +14,10 @@ namespace dsp::recursive {
 
         template<typename SampleType>
         SampleBuffer<SampleType> operator()(SampleBuffer<SampleType>& input);
-    };
 
+        template<typename SampleType, size_t Capacity>
+        void operator()(SampleBuffer<SampleType>& input, CircularBuffer<SampleType, Capacity>& output);
+    };
 
     using BiQuad = Coefficients<2>;
     using TwoPoleCoefficients = Coefficients<2>;
@@ -247,5 +249,31 @@ namespace dsp::recursive {
         }
 
         return output;
+    }
+
+    template<size_t Poles>
+    template<typename SampleType, size_t Capacity>
+    void Coefficients<Poles>::operator()(SampleBuffer<SampleType> &input, CircularBuffer<SampleType, Capacity>& output) {
+        auto& A = a;
+        auto& B = b;
+        assert(B[0] == 0);
+        assert(!A.empty());
+        assert(!B.empty());
+
+        const auto N = input.size();
+        const auto aN = A.size();
+        const auto bN = B.size();
+        const auto& X = input;
+        auto& Y = output;
+
+        for(auto i = 0; i < N; i++){
+            for(auto j = 0; j < aN; j++){
+                Y[i] += A[j] * X[i - j];
+            }
+
+            for(auto j = 1; j < bN; j++){
+                Y[i] += B[j] * Y[i - j];
+            }
+        }
     }
 }
