@@ -68,7 +68,7 @@ namespace dsp {
             auto index = idx;
             if constexpr (Circular){
                 const auto size = m_data.size();
-                index = std::abs(size - index)%size;
+                index = (size + index)%size;
             }
             return m_data[index];
         }
@@ -77,9 +77,9 @@ namespace dsp {
             auto index = idx;
             if constexpr (Circular){
                 const auto size = m_data.size();
-                index = std::abs(size - index)%size;
+                index = (size + index)%size;
             }
-            return m_data[idx];
+            return m_data[index];
         }
 
         explicit operator SampleType*() noexcept {

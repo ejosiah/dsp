@@ -4,25 +4,9 @@
 #include "sample_buffer.h"
 #include <deque>
 #include <tuple>
+#include "coefficients.h"
 
 namespace dsp::recursive {
-
-    template<size_t Poles>
-    struct Coefficients {
-        std::array<double, Poles + 1u> a;
-        std::array<double, Poles + 1u> b;
-
-        template<typename SampleType>
-        SampleBuffer<SampleType> operator()(SampleBuffer<SampleType>& input);
-
-        template<typename SampleType, size_t Capacity>
-        void operator()(SampleBuffer<SampleType>& input, CircularBuffer<SampleType, Capacity>& output);
-    };
-
-    using BiQuad = Coefficients<2>;
-    using TwoPoleCoefficients = Coefficients<2>;
-    using FourPoleCoefficients = Coefficients<4>;
-    using SixPoleCoefficients = Coefficients<6>;
 
     using Poles = std::tuple<double, double, double, double, double>;
 
@@ -222,58 +206,57 @@ namespace dsp::recursive {
         return biQuad;
     }
 
-    template<size_t Poles>
-    template<typename SampleType>
-    SampleBuffer<SampleType> Coefficients<Poles>::operator()(SampleBuffer<SampleType> &input) {
-        auto& A = a;
-        auto& B = b;
-        assert(B[0] == 0);
-        assert(!A.empty());
-        assert(!B.empty());
+    auto lowShelf(double frequency, double gain){
+        auto u = std::pow(10.0f, gain / 20);
+        auto w = frequency;
+        auto v = 4.0 / (1 + u);
+        auto x = v * std::tan(w / 2);
+        auto y = (1 - x) / (1 + x);
+        BiQuad bq;
+        bq.a0 = (1 - y)/2;
+        bq.a1 = bq.a0;
+        bq.a2 = 0;
+        bq.b1 = y;
+        bq.b2 = 0;
+        bq.c0 = u - 1;
+        bq.d0 = 1.0f;
 
-        const auto N = input.size();
-        const auto aN = A.size();
-        const auto bN = B.size();
-        SampleBuffer<SampleType> output(N);
-        const auto& X = input;
-        auto& Y = output;
-
-        for(auto i = bN; i < N; i++){
-            for(auto j = 0; j < aN; j++){
-                Y[i] += A[j] * X[i - j];
-            }
-
-            for(auto j = 1; j < bN; j++){
-                Y[i] += B[j] * Y[i - j];
-            }
-        }
-
-        return output;
+        return bq;
     }
 
-    template<size_t Poles>
-    template<typename SampleType, size_t Capacity>
-    void Coefficients<Poles>::operator()(SampleBuffer<SampleType> &input, CircularBuffer<SampleType, Capacity>& output) {
-        auto& A = a;
-        auto& B = b;
-        assert(B[0] == 0);
-        assert(!A.empty());
-        assert(!B.empty());
+    auto highShelf(double frequency, double gain){
+        auto u = std::pow(10, gain / 20);
+        auto w = frequency;
+        auto v = (1 + u) / 4;
+        auto x = v * std::tan(w / 2);
+        auto y = (1 - x) / (1 + x);
+        BiQuad bq{};
+        bq.a0 = (1 + y)/2;
+        bq.a1 = -bq.a0;
+        bq.b1 = y;
+        bq.c0 = u - 1;
+        bq.d0 = 1;
 
-        const auto N = input.size();
-        const auto aN = A.size();
-        const auto bN = B.size();
-        const auto& X = input;
-        auto& Y = output;
+        return bq;
+    }
 
-        for(auto i = 0; i < N; i++){
-            for(auto j = 0; j < aN; j++){
-                Y[i] += A[j] * X[i - j];
-            }
+    auto peakingFilter(double frequency, double gain, double q){
+        auto u = std::pow(10, gain / 20);
+        auto v = 4 / (1 + u);
+        auto w = frequency;
+        auto x = std::tan(w / (2 * q));
+        auto vx = v * x;
+        auto y = .5 * ((1 - vx) / (1 + vx));
+        auto z = (.5 + y) * std::cos(w);
 
-            for(auto j = 1; j < bN; j++){
-                Y[i] += B[j] * Y[i - j];
-            }
-        }
+        BiQuad bq{};
+        bq.a0 = .5 - y;
+        bq.a2 = -bq.a0;
+        bq.b1 = 2 * z;
+        bq.b2 = -2 * y;
+        bq.c0 = u - 1;
+        bq.d0 = 1;
+
+        return bq;
     }
 }
