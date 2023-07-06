@@ -5,7 +5,7 @@ namespace audio {
     class PatchInput;
     class PatchMixer;
     class PatchSplitter;
-    class patchOutput;
+    class PatchOutput;
     class Engine;
     class CircularBuffer;
 
