@@ -5,6 +5,7 @@
 #include "circular_buffer.h"
 #include <vector>
 #include <atomic>
+#include <memory>
 
 namespace audio {
 
@@ -36,6 +37,9 @@ namespace audio {
         std::atomic<real_t> m_targetGain{0.0};
         std::atomic<int32_t> m_numAliveInputs{0};
     };
+
+    using PatchOutputStrongPtr = std::shared_ptr<PatchOutput>;
+    using PatchOutputWeakPtr = std::weak_ptr<PatchOutput>;
 
     PatchOutput::PatchOutput(uint32_t maxCapacity, real_t inGain)
             : m_buffer(maxCapacity)

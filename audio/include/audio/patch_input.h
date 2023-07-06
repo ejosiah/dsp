@@ -6,12 +6,8 @@
 #include <vector>
 #include <atomic>
 #include "patch_output.h"
-#include <memory>
 
 namespace audio {
-
-    using PatchOutputStrongPtr = std::shared_ptr<PatchOutput>;
-    using PatchOutputWeakPtr = std::weak_ptr<PatchOutput>;
 
     class PatchInput {
     public:
