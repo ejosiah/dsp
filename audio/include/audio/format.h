@@ -22,6 +22,7 @@ namespace audio {
         uint32_t outputChannels{};
         SampleType sampleType{SampleType::Float32};
         float sampleRate{};
-        ulong  frameBufferSize{};
+        uint32_t  frameBufferSize{};
+        uint32_t audioBufferSize{};
     };
 }

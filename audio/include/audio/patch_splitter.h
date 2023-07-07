@@ -95,7 +95,7 @@ namespace audio {
             // or use some other method to notify the caller that all
             // outputs are disconnected
             assert(smallestRemainder <= static_cast<uint32_t>(Maxint32));
-            return to<int32_t>(smallestRemainder);
+            return as<int32_t>(smallestRemainder);
         }
     }
 

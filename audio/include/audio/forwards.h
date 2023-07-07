@@ -7,6 +7,8 @@ namespace audio {
     class PatchSplitter;
     class PatchOutput;
     class Engine;
-    class CircularBuffer;
+
+    template<typename SampleType>
+    class CircularAudioBuffer;
 
 }

@@ -66,13 +66,13 @@ namespace audio {
             return -1;
         }
         m_mixingBuffer.resize(numSamples);
-        int32_t popResult = 0;
+        int32_t popResult{};
 
         if(useLatestAudio && m_buffer.num() > numSamples){
             m_buffer.setNum(numSamples);
-            popResult = m_buffer.peek(m_mixingBuffer.data(), numSamples);
+            popResult = as<int32_t>(m_buffer.peek(m_mixingBuffer.data(), numSamples));
         }else{
-            popResult = m_buffer.pop(m_mixingBuffer.data(), numSamples);
+            popResult = as<int32_t>(m_buffer.pop(m_mixingBuffer.data(), numSamples));
         }
 
         mixInBuffer(m_mixingBuffer.data(), outBuffer, popResult, m_targetGain);

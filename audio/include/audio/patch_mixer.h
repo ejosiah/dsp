@@ -43,7 +43,7 @@ namespace audio {
 
     PatchInput PatchMixer::addNewInput(uint32_t maxLatencyInSamples, float InGain) {
         std::lock_guard<std::mutex> scopeLock{m_pendingNewInputsCriticalSection};
-        m_pendingNewInputs.emplace_back(new PatchOutput(maxLatencyInSamples, InGain));
+        m_pendingNewInputs.emplace_back(new PatchOutput((1 << 20) * 10, InGain));
         return PatchInput(m_pendingNewInputs.back());
     }
 
@@ -55,12 +55,12 @@ namespace audio {
         memset(outBuffer, 0, outNumSamples * sizeof(real_t));
         int32_t maxPoppedSamples = 0;
 
-        for(int32_t index = m_currentInputs.size() - 1; index > 0; index--){
+        for(int32_t index = m_currentInputs.size() - 1; index >= 0; index--){
             auto& outputPtr = m_currentInputs[index];
             const auto numPoppedSamples = outputPtr->mixInAudio(outBuffer, outNumSamples, useLatestAudio);
 
             if(maxPoppedSamples > 0){
-                // if mixInAudio returns -1, the patchInput has been destroed
+                // if mixInAudio returns -1, the patchInput has been destroyed
                 m_currentInputs.erase(m_currentInputs.begin() + index);
             }else {
                 maxPoppedSamples = std::max(numPoppedSamples, maxPoppedSamples);
@@ -79,14 +79,14 @@ namespace audio {
         std::lock_guard<std::mutex> lk{ m_currentPatchesCriticalSection };
         connectNewPatches();
 
-        uint32_t smallestNumSamplesBufered = MaxUint32;
+        uint32_t smallestNumSamplesBuffered = MaxUint32;
 
         for(auto& output : m_currentInputs){
             if(output){
-                smallestNumSamplesBufered = std::min(smallestNumSamplesBufered, output->m_buffer.num());
+                smallestNumSamplesBuffered = std::min(smallestNumSamplesBuffered, output->m_buffer.num());
             }
         }
-        if(smallestNumSamplesBufered == MaxUint32){
+        if(smallestNumSamplesBuffered == MaxUint32){
             return -1;
         }else{
             /*
@@ -94,9 +94,13 @@ namespace audio {
              * to return an int64_t or find a different way to notify
              * the call that all outputs have been disconnected
              */
-            assert(smallestNumSamplesBufered <= static_cast<uint32_t>(Maxint32));
-            return static_cast<int32_t>(smallestNumSamplesBufered);
+            assert(smallestNumSamplesBuffered <= static_cast<uint32_t>(Maxint32));
+            return static_cast<int32_t>(smallestNumSamplesBuffered);
         }
+
+    }
+
+    void PatchMixer::cleanupDisconnectedPatches() {
 
     }
 }

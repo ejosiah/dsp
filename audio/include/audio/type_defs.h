@@ -8,5 +8,5 @@ namespace audio {
     constexpr auto Maxint32 = std::numeric_limits<int32_t>::max();
 
     template<typename T, typename U>
-    constexpr T to(U u){ return static_cast<T>(u); }
+    constexpr T as(U u){ return static_cast<T>(u); }
 }
