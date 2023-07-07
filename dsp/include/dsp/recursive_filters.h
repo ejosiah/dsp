@@ -150,14 +150,16 @@ namespace dsp::recursive {
         return std::make_tuple(A0, A1, A2, B1, B2);
     }
 
+    template<size_t Poles = 4>
     auto lowPassFilter(double cutoffFrequency){
         assert(cutoffFrequency >= 0 && cutoffFrequency <= 0.5);
-        return chebyshev::computeCoefficients<4>(FilterType::LowPass, 0.5, cutoffFrequency);
+        return chebyshev::computeCoefficients<Poles>(FilterType::LowPass, 0.5, cutoffFrequency);
     }
 
+    template<size_t Poles = 4>
     auto highPassFilter(double cutoffFrequency){
         assert(cutoffFrequency >= 0 && cutoffFrequency <= 0.5);
-        return chebyshev::computeCoefficients<4>(FilterType::HighPass, 0.5, cutoffFrequency);
+        return chebyshev::computeCoefficients<Poles>(FilterType::HighPass, 0.5, cutoffFrequency);
     }
 
     auto bandPassFilter(double centerFrequency, double bandwidth){
@@ -213,11 +215,11 @@ namespace dsp::recursive {
         auto x = v * std::tan(w / 2);
         auto y = (1 - x) / (1 + x);
         BiQuad bq;
-        bq.a0 = (1 - y)/2;
-        bq.a1 = bq.a0;
-        bq.a2 = 0;
-        bq.b1 = y;
-        bq.b2 = 0;
+        bq.a[0] = (1 - y)/2;
+        bq.a[1] = bq.a[0];
+        bq.a[2] = 0;
+        bq.b[1] = y;
+        bq.b[2] = 0;
         bq.c0 = u - 1;
         bq.d0 = 1.0f;
 
@@ -231,9 +233,9 @@ namespace dsp::recursive {
         auto x = v * std::tan(w / 2);
         auto y = (1 - x) / (1 + x);
         BiQuad bq{};
-        bq.a0 = (1 + y)/2;
-        bq.a1 = -bq.a0;
-        bq.b1 = y;
+        bq.a[0] = (1 + y)/2;
+        bq.a[1] = -bq.a[0];
+        bq.b[1] = y;
         bq.c0 = u - 1;
         bq.d0 = 1;
 
@@ -250,10 +252,10 @@ namespace dsp::recursive {
         auto z = (.5 + y) * std::cos(w);
 
         BiQuad bq{};
-        bq.a0 = .5 - y;
-        bq.a2 = -bq.a0;
-        bq.b1 = 2 * z;
-        bq.b2 = -2 * y;
+        bq.a[0] = .5 - y;
+        bq.a[2] = -bq.a[0];
+        bq.b[1] = 2 * z;
+        bq.b[2] = -2 * y;
         bq.c0 = u - 1;
         bq.d0 = 1;
 

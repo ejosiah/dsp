@@ -8,6 +8,7 @@
 #include <algorithm>
 #include <cmath>
 #include <dsp/ring_buffer.h>
+#include <dsp/fft.h>
 #include <memory>
 #include <iostream>
 #include <dsp/dsp.h>

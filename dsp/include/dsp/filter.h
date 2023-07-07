@@ -92,7 +92,7 @@ namespace dsp::filter {
         auto mid = M / 2;
         output[mid] = sum / static_cast<SampleType>(M);
 
-        for (auto i = mid + 1; i < N; i++) {
+        for (auto i = mid + 1; i < (N - mid); i++) {
             sum += input[i + mid] - input[i - mid - 1];
             output[i] = sum / static_cast<SampleType>(M);
         }

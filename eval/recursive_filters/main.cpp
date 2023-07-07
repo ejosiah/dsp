@@ -43,10 +43,10 @@ struct Data{
 };
 
 struct Settings{
+    int filterType{NO_FILTER};
     float frequency{0.25};
     float bandwidth{0.006};
     float gain{1};
-    int filterType{LOW_PASS};
     float volume{.01};
     bool on{false};
 };
@@ -139,8 +139,6 @@ struct AudioData {
 constexpr int Duration = 10; // seconds
 constexpr int MaxSamples = SAMPLE_RATE * Duration;
 
-Signal gSignal(MaxSamples);
-Signal gSignalCopy;
 
 static int paNoiseCallback(const void *inputBuffer,
                            void *outputBuffer,
@@ -207,7 +205,6 @@ static int paNoiseCallback(const void *inputBuffer,
             filter(signal, oSignal);
         }
         std::copy(oSignal.begin(), oSignal.end(), signal.begin());
-
     }
 
     for(int i = 0; i < frameCount; i++){
@@ -251,7 +248,7 @@ int main(int, char**){
     SettingsRingBuffer  rbAudioSettings;
 
     rbAudioSettings.push({});
-    rbData.push(createDate({}));
+    rbData.push(createDate({LOW_PASS}));
 
     static double t = 0;
     static auto sample = [dist=std::normal_distribution<float>{0, 2}
@@ -261,7 +258,7 @@ int main(int, char**){
 
     vui::show(config, [&]{
 
-        static Settings settings{};
+        static Settings settings{LOW_PASS};
         static Data data;
         static bool dirty = false;
         static Signal signal;
@@ -357,4 +354,17 @@ int main(int, char**){
     shutdownAudio(audioStream);
 
     vui::wait();
+
+/*    static std::default_random_engine engine{std::random_device{}()};
+    static std::normal_distribution<float> dist{0, 2};
+    static auto sample = std::bind(dist, engine);
+
+    Signal signal(100);
+    std::generate(signal.begin(), signal.end(), [&]{ return sample(); });
+
+    auto filter = dsp::recursive::lowPassFilter(0.25);
+
+    auto out = filter(signal);*/
+
+
 }
