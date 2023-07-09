@@ -1,4 +1,5 @@
 #include <audio/engine.h>
+#include <audio/choc_Oscillators.h>
 #include <random>
 #include <algorithm>
 #include <thread>
@@ -12,32 +13,59 @@
 #define FRAME_COUNT (512)
 
 int main(int, char**){
-    audio::Format format{0, 2, audio::SampleType::Float32, SAMPLE_RATE, FRAME_COUNT};
+    audio::Format format{0, 2, audio::SampleType::Float32, SAMPLE_RATE, FRAME_COUNT, SAMPLE_RATE * 100};
     audio::Engine engine{format};
     engine.start();
-    auto patchIn = engine.connectNewInput(2048);
+//    auto patchIn0 = engine.connectNewInput(2048);
+    auto patchIn1 = engine.connectNewInput(2048);
 
     auto rng = [dist=std::uniform_real_distribution<float>{-1, 1}
                 , engine=std::default_random_engine{std::random_device{}()}]() mutable {
         return dist(engine);
     };
 
-    const auto N = SAMPLE_RATE * 5;
-    std::vector<float> samples(N);
-    std::generate(begin(samples), end(samples), [&]{ return rng() * 0.01; });
-    //engine.m_outputBuffer.push(noise.data(), N);
-    patchIn.pushAudio(samples.data(), N);
 
-   engine.sleep(std::chrono::milliseconds(3000));
 
-    for(int i = 0; i < N; i++){
-        float t = i * T;
-        samples[i] = std::cosf(2 * dsp::PI * 440 * t);
-    }
-    patchIn.pushAudio(samples.data(), N);
+//    std::thread t0{[&]{
+//        const auto N = 1024;
+//        std::vector<float> samples(N);
+//        while(engine.isActive()) {
+//            std::generate(begin(samples), end(samples), [&] { return rng() * 0.01; });
+//            patchIn0.pushAudio(samples.data(), N);
+//            std::this_thread::sleep_for(std::chrono::milliseconds(2));
+//        }
+//    }};
+
+    choc::oscillator::Sine<float> oscillator;
+    oscillator.setFrequency(2500, SAMPLE_RATE);
+    choc::oscillator::Square<float> pause;
+    pause.setFrequency(5, SAMPLE_RATE);
+
+    std::thread t1{[&]{
+        const auto info = engine.info();
+//        const int N = SAMPLE_RATE;
+        const int N = 1024;
+        std::vector<float> samples(N);
+
+        while(info.isActive()){
+            for(int i = 0; i < N; i++){
+                auto sample = std::cosf(2.f * dsp::PI * (i * T) * 2500) * 0.01;
+                float amp = (i/(SAMPLE_RATE/10))%2;
+//                std::cout << "i: " << i << " amp: " << amp << "\n";
+                samples[i] = oscillator.getSample() * 0.01 * (.5 * pause.getSample() + .5);
+            }
+            patchIn1.pushAudio(samples.data(), N);
+            std::this_thread::sleep_for(std::chrono::milliseconds(10));
+
+        }
+    }};
+
 
 
    engine.sleep(std::chrono::milliseconds(10000));
+
+//    t0.join();
+    t1.join();
 
    engine.shutdown();
 

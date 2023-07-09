@@ -31,6 +31,10 @@ namespace audio {
         [[nodiscard]]
         Format format() const;
 
+        bool isActive() const;
+
+        bool isStopped() const;
+
     private:
         explicit Info(Format format, PaStream* iStream);
 
@@ -55,6 +59,14 @@ namespace audio {
 
     Format Info::format() const {
         return _format;
+    }
+
+    bool Info::isActive() const {
+        return stream && Pa_IsStreamActive(stream);
+    }
+
+    bool Info::isStopped() const {
+        return stream && Pa_IsStreamStopped(stream);
     }
 
     class Engine {
@@ -155,14 +167,11 @@ namespace audio {
     }
 
     void Engine::writeToDevice(float *out) {
+        requestAudioData.notify_one();
+
         const auto size = m_format.frameBufferSize;
         std::fill_n(out, size * m_format.outputChannels, 0);
         static std::vector<real_t> bucket(size);
-
-        auto available = m_outputBuffer.num();
-        if(available == 0){
-            requestAudioData.notify_one();
-        }
 
         auto read = m_outputBuffer.pop(bucket.data(), size);
 

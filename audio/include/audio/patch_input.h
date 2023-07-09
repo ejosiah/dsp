@@ -5,6 +5,7 @@
 #include "circular_buffer.h"
 #include <vector>
 #include <atomic>
+#include <span>
 #include "patch_output.h"
 
 namespace audio {

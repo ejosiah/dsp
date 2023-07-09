@@ -59,7 +59,7 @@ namespace audio {
             auto& outputPtr = m_currentInputs[index];
             const auto numPoppedSamples = outputPtr->mixInAudio(outBuffer, outNumSamples, useLatestAudio);
 
-            if(maxPoppedSamples > 0){
+            if(maxPoppedSamples < 0){
                 // if mixInAudio returns -1, the patchInput has been destroyed
                 m_currentInputs.erase(m_currentInputs.begin() + index);
             }else {
