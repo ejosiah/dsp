@@ -43,7 +43,7 @@ namespace audio {
 
     PatchInput PatchMixer::addNewInput(uint32_t maxLatencyInSamples, float InGain) {
         std::lock_guard<std::mutex> scopeLock{m_pendingNewInputsCriticalSection};
-        m_pendingNewInputs.emplace_back(new PatchOutput((1 << 20) * 10, InGain));
+        m_pendingNewInputs.emplace_back(new PatchOutput(maxLatencyInSamples * 2, InGain));
         return PatchInput(m_pendingNewInputs.back());
     }
 

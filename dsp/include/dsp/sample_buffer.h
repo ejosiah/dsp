@@ -175,7 +175,7 @@ namespace dsp {
     template<typename SampleType, size_t Capacity>
     using CircularBuffer = SampleBuffer<SampleType, true, Capacity>;
 
-    template<typename SampleType, bool Circular>
+    template<typename SampleType, bool Circular = false>
     using Signal = SampleBuffer<SampleType, Circular>;
 
     template<typename SampleType, bool Circular>

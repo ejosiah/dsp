@@ -62,7 +62,7 @@ void computeFFT(Signal& signal, Signal& output, int nFrequency){
     std::memcpy(input.data(), signal.data(), signal.size());
     std::vector<std::complex<double>> frequency(fn);
 
-    dsp::fft(input.begin(), input.end(), frequency.begin());
+    dsp::fft(input.begin(), input.end(), frequency.begin(), input.size());
 
     output.clear();
     for(const auto& c : frequency){
@@ -83,10 +83,10 @@ Signal applyFilter(const Signal& input, float frequency, float bandwidth, float 
         auto filter = dsp::recursive::bandRejectFilter(frequency, bandwidth);
         output = filter(input);
     }else if(filterType == LOW_PASS){
-        auto filter = dsp::recursive::lowPassFilter(frequency);
+        auto filter = dsp::recursive::lowPassFilter<2>(frequency);
         output = filter(input);
     }else if(filterType == HIGH_PASS){
-        auto filter = dsp::recursive::highPassFilter(frequency);
+        auto filter = dsp::recursive::highPassFilter<2>(frequency);
         output = filter(input);
     }else if(filterType == LOW_SHELF){
         auto filter = dsp::recursive::lowShelf(frequency, gain);
@@ -110,9 +110,9 @@ Data createDate(Settings settings){
     Signal impulseResponse = applyFilter(impulse, settings.frequency, settings.bandwidth
                                          , settings.gain, settings.filterType);
 
-    std::vector<std::complex<double>> freq(impulseResponse.size() + 1);
+    std::vector<std::complex<double>> freq(N);
 
-    dsp::fft(impulseResponse.begin(), impulseResponse.end(), freq.begin());
+    dsp::fft(impulseResponse.begin(), impulseResponse.end(), freq.begin(), N);
     dsp::SampleBuffer<double> freqMag;
     for(const auto& c : freq){
         freqMag.add(abs(c));
@@ -189,10 +189,10 @@ static int paNoiseCallback(const void *inputBuffer,
             auto filter = dsp::recursive::bandRejectFilter(settings.frequency, settings.bandwidth);
             filter(signal, oSignal);
         }else if(settings.filterType == LOW_PASS){
-            auto filter = dsp::recursive::lowPassFilter(settings.frequency);
+            auto filter = dsp::recursive::lowPassFilter<2>(settings.frequency);
             filter(signal, oSignal);
         }else if(settings.filterType == HIGH_PASS){
-            auto filter = dsp::recursive::highPassFilter(settings.frequency);
+            auto filter = dsp::recursive::highPassFilter<2>(settings.frequency);
             filter(signal, oSignal);
         }else if(settings.filterType == LOW_SHELF){
             auto filter = dsp::recursive::lowShelf(settings.frequency, settings.gain);
@@ -279,7 +279,7 @@ int main(int, char**){
         dirty |= ImGui::Checkbox("enable", &settings.on);
 
         if(ImPlot::BeginPlot("Impulse Response", {500, 500})){
-            ImPlot::PlotLine("Band pass filter", data.impulseResponse.data(), data.impulseResponse.size());
+            ImPlot::PlotLine("Impulse Response", data.impulseResponse.data(), data.impulseResponse.size());
             ImPlot::EndPlot();
             ImGui::SameLine();
         }

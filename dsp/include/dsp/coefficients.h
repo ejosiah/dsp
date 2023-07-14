@@ -48,7 +48,7 @@ namespace dsp {
                 double b2;
             };
         };
-        
+
         union {
             std::array<double, 3u> x{};
             struct {
@@ -57,7 +57,7 @@ namespace dsp {
                 double x2;
             };
         };
-        
+
         union {
             std::array<double, 3u> y{};
             struct {

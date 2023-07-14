@@ -83,6 +83,8 @@ namespace audio {
 
         PatchOutputStrongPtr connectNewOutput(uint32_t maxLatencyInSamples);
 
+        PatchOutputStrongPtr outputTap(uint32_t maxLatencyInSamples);
+
         void writeToDevice(float* out);
 
         void readFromDevice(const float* in);
@@ -118,6 +120,7 @@ namespace audio {
         std::thread m_updateThread;
         PatchMixer m_mixer{};
         PatchSplitter m_splitter{};
+        PatchSplitter m_tap{};
         std::mutex m_mutex;
         std::condition_variable requestAudioData;
     };
@@ -164,6 +167,10 @@ namespace audio {
 
     PatchOutputStrongPtr Engine::connectNewOutput(uint32_t maxLatencyInSamples) {
         return {};
+    }
+
+    PatchOutputStrongPtr Engine::outputTap(uint32_t maxLatencyInSamples) {
+        return m_tap.addNewPatch(maxLatencyInSamples, 1);
     }
 
     void Engine::writeToDevice(float *out) {
@@ -221,18 +228,30 @@ namespace audio {
 
     void Engine::update() {
         static std::vector<float> buffer{};
+        static int32_t pushed = 0;
+        static int32_t read = 0;
         while(isActive()){
             std::unique_lock<std::mutex> lock{ m_mutex };
 
-            std::cout << "waiting on data from input patches\n";
+//            std::cout << "waiting on data from input patches\n";
             requestAudioData.wait(lock);
-            const auto available = m_mixer.maxNumberOfSamplesThatCanBePopped();
-            std::cout << available <<  " available to read from patch\n";
-            if(available != 0){
-                buffer.resize(available);
-                const auto read = m_mixer.popAudio(buffer.data(), available, false);
-                m_outputBuffer.push(buffer.data(), read);
-                std::cout << "read " << read << " from input patches\n";
+
+            if(read - pushed != 0){
+                pushed += m_outputBuffer.push(buffer.data() + pushed, read - pushed);
+            }else {
+
+                const auto available = m_mixer.maxNumberOfSamplesThatCanBePopped();
+//            std::cout << available <<  " available to read from patch\n";
+                if (available > 0) {
+                    buffer.resize(available);
+                    read = m_mixer.popAudio(buffer.data(), available, false);
+
+                    // FIXME buffer might be too small so we need to keep pushing
+                    // until we have completely consumed the data
+                    pushed = m_outputBuffer.push(buffer.data(), read);
+                    m_tap.pushAudio(buffer.data(), read);
+//                std::cout << "read " << read << " from input patches\n";
+                }
             }
         }
     }

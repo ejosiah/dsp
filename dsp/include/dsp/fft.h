@@ -55,11 +55,11 @@ namespace dsp {
     }
 
     template<typename TimeDomainIterator, typename ComplexIterator, FFTType type = FFTType::FORWARD>
-    void fft(TimeDomainIterator tdFirst, TimeDomainIterator tdLast, ComplexIterator c_out){
+    void fft(TimeDomainIterator tdFirst, TimeDomainIterator tdLast, ComplexIterator c_out, int nf){
         auto size = std::distance(tdFirst, tdLast);
 
         // TODO remove this let caller handle and assert that size is power of 2
-        auto log2n = static_cast<int>(std::ceil(std::log2(size)));
+        auto log2n = static_cast<int>(std::ceil(std::log2(nf)));
         auto sizePowerOf2 = static_cast<int>(std::pow(2, log2n));
 
         std::vector<std::complex<double>> input{};

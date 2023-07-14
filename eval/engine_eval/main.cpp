@@ -17,7 +17,7 @@ int main(int, char**){
     audio::Engine engine{format};
     engine.start();
 //    auto patchIn0 = engine.connectNewInput(2048);
-    auto patchIn1 = engine.connectNewInput(2048);
+    auto patchIn1 = engine.connectNewInput(1 << 20);
 
     auto rng = [dist=std::uniform_real_distribution<float>{-1, 1}
                 , engine=std::default_random_engine{std::random_device{}()}]() mutable {
