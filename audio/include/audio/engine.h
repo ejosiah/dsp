@@ -9,6 +9,7 @@
 #include <thread>
 #include "patch.h"
 #include <iostream>
+#include "audio.h"
 
 #define ERR_GUARD_PA(err) \
 if((err) != paNoError) {    \
@@ -62,11 +63,11 @@ namespace audio {
     }
 
     bool Info::isActive() const {
-        return stream && Pa_IsStreamActive(stream);
+        return Pa_IsStreamActive(stream);
     }
 
     bool Info::isStopped() const {
-        return stream && Pa_IsStreamStopped(stream);
+        return Pa_IsStreamStopped(stream);
     }
 
     class Engine {
@@ -127,8 +128,10 @@ namespace audio {
 
     Engine::Engine(Format format)
     : m_format{ format }
-    , m_outputBuffer{ std::max( format.audioBufferSize, format.frameBufferSize * 1024)}
-    , m_inputBuffer{ std::max( format.audioBufferSize, format.frameBufferSize * 1024)}
+    , m_outputBuffer{ std::max( format.audioBufferSize * format.outputChannels, format.frameBufferSize * format.outputChannels  *1024)}
+    , m_inputBuffer{ std::max( format.audioBufferSize * format.inputChannels, format.frameBufferSize  * format.inputChannels *  1024)}
+    , m_mixer{ format }
+    , m_splitter{ format }
     {
     }
 
@@ -176,16 +179,18 @@ namespace audio {
     void Engine::writeToDevice(float *out) {
         requestAudioData.notify_one();
 
-        const auto size = m_format.frameBufferSize;
-        std::fill_n(out, size * m_format.outputChannels, 0);
+        const auto size = m_format.frameBufferSize * m_format.outputChannels;
+        std::fill_n(out, size, 0);
         static std::vector<real_t> bucket(size);
 
         auto read = m_outputBuffer.pop(bucket.data(), size);
 
+        auto in = bucket.data();
+
         for(int i = 0; i < read; ++i){
             for(int c = 0; c < m_format.outputChannels; ++c){
-                *out = bucket[i];
-                out++;
+                *out = *in;
+                ++in, ++out;
             }
         }
     }

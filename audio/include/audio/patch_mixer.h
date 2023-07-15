@@ -5,12 +5,15 @@
 #include <cassert>
 #include "patch_output.h"
 #include "patch_input.h"
+#include "format.h"
 
 namespace audio {
 
     class PatchMixer {
     public:
-        PatchMixer() = default;
+        friend class Engine;
+
+        PatchMixer(Format format);
 
         PatchInput addNewInput(uint32_t maxLatencyInSamples, float InGain);
 
@@ -21,6 +24,8 @@ namespace audio {
         int32_t maxNumberOfSamplesThatCanBePopped();
 
     private:
+        PatchMixer() = default;
+
         void connectNewPatches();
 
         void cleanupDisconnectedPatches();
@@ -31,7 +36,11 @@ namespace audio {
 
         std::vector<PatchOutputStrongPtr> m_currentInputs;
         mutable std::mutex m_currentPatchesCriticalSection;
+        Format m_format;
+
     };
+
+    PatchMixer::PatchMixer(Format format) : m_format{format} {}
 
     void PatchMixer::connectNewPatches() {
         std::lock_guard<std::mutex> scopeLock{m_pendingNewInputsCriticalSection};
@@ -43,7 +52,7 @@ namespace audio {
 
     PatchInput PatchMixer::addNewInput(uint32_t maxLatencyInSamples, float InGain) {
         std::lock_guard<std::mutex> scopeLock{m_pendingNewInputsCriticalSection};
-        m_pendingNewInputs.emplace_back(new PatchOutput(maxLatencyInSamples * 2, InGain));
+        m_pendingNewInputs.emplace_back(new PatchOutput(m_format, maxLatencyInSamples * 2, InGain));
         return PatchInput(m_pendingNewInputs.back());
     }
 

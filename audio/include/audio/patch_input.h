@@ -7,6 +7,7 @@
 #include <atomic>
 #include <span>
 #include "patch_output.h"
+#include "audio.h"
 
 namespace audio {
 
@@ -22,7 +23,15 @@ namespace audio {
 
         PatchInput& operator=(const PatchInput& other);
 
-        int32_t pushAudio(const float* inBuffer, uint32_t numSamples);
+        int32_t pushAudio(float sample);
+
+        int32_t pushAudio(float left, float right);
+
+        int32_t pushAudio(const MonoView& buffer);
+
+        int32_t pushAudio(const MonoView& left, const MonoView& right);
+
+        int32_t pushAudio(const InterleavedView& buffer);
 
         void gain(float value);
 
@@ -30,6 +39,9 @@ namespace audio {
 
         friend class PatchMixer;
         friend class PatchSplitter;
+
+    private:
+        int32_t pushAudio(const float* inBuffer, uint32_t numSamples);
 
     private:
        PatchOutputWeakPtr m_outputHandle{};
@@ -64,6 +76,51 @@ namespace audio {
         if(auto strongPtr = m_outputHandle.lock()){
             strongPtr->m_numAliveInputs--;
         }
+    }
+
+    int32_t PatchInput::pushAudio(float left, float right) {
+        auto pushed = pushAudio(&left, 1u) + pushAudio(&right, 1u);
+        return pushed/2;
+    }
+
+    int32_t PatchInput::pushAudio(float sample) {
+        return pushAudio(&sample, 1u);
+    }
+
+    int32_t PatchInput::pushAudio(const MonoView& buffer) {
+        if(auto outPtr = m_outputHandle.lock()){
+            if(outPtr->m_format.outputChannels == 1){
+                return pushAudio(buffer.data.data, buffer.size.numFrames);
+            }else {
+                return pushAudio(buffer, buffer);
+            }
+        }
+        return -1;
+    }
+
+    int32_t PatchInput::pushAudio(const MonoView &left, const MonoView &right) {
+        if(auto outPtr = m_outputHandle.lock()){
+            auto numChannels = outPtr->m_format.outputChannels;
+            auto numFrames = std::max(left.size.numFrames, right.size.numFrames);
+            auto size = numChannels * numFrames;
+            std::vector<real_t> data(size);
+            for(auto i = 0; i < numFrames; i++){
+                data[i * numChannels] = left.getSample(0, i);
+                data[i * numChannels + 1] = right.getSample(0, i);
+            }
+            auto interleaved = audio::wrapInterLeaved(data.data(), numChannels, numFrames);
+
+            return pushAudio(interleaved);
+        }
+        return -1;
+
+    }
+
+    int32_t PatchInput::pushAudio(const InterleavedView& buffer) {
+        // TODO check buffer format matches input patch format
+        auto samples = buffer.data.data;
+        auto numSamples = buffer.size.numFrames * buffer.size.numChannels;
+        return pushAudio(samples, numSamples)/buffer.size.numChannels;
     }
 
     int32_t PatchInput::pushAudio(const real_t *inBuffer, uint32_t numSamples) {

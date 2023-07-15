@@ -13,11 +13,11 @@
 #define FRAME_COUNT (512)
 
 int main(int, char**){
-    audio::Format format{0, 2, audio::SampleType::Float32, SAMPLE_RATE, FRAME_COUNT, SAMPLE_RATE * 100};
+    audio::Format format{0, 2, audio::SampleType::Float32, SAMPLE_RATE, FRAME_COUNT, SAMPLE_RATE};
     audio::Engine engine{format};
     engine.start();
 //    auto patchIn0 = engine.connectNewInput(2048);
-    auto patchIn1 = engine.connectNewInput(1 << 20);
+    auto patchIn1 = engine.connectNewInput(SAMPLE_RATE/10);
 
     auto rng = [dist=std::uniform_real_distribution<float>{-1, 1}
                 , engine=std::default_random_engine{std::random_device{}()}]() mutable {
@@ -62,12 +62,12 @@ int main(int, char**){
 
 
 
-   engine.sleep(std::chrono::milliseconds(10000));
+   engine.sleep(std::chrono::milliseconds(5000));
+   engine.shutdown();
 
 //    t0.join();
     t1.join();
 
-   engine.shutdown();
 
 
 

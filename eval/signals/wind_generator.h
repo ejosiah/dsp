@@ -183,8 +183,8 @@ private:
 class TreeLeaves{
 public:
     TreeLeaves(uint32_t sampleRate)
-    : m_delay{ 2000.f/static_cast<float>(sampleRate) }
-    , m_period{ 1/static_cast<float>(sampleRate) }
+    : m_delay{ 3000.f/static_cast<float>(sampleRate) }
+    , m_period{ 0.07f/static_cast<float>(sampleRate) }
     , m_lopL{ dsp::recursive::lowPassFilter<2>(0.1f/static_cast<float>(sampleRate)) }
     , m_lopH{ dsp::recursive::lowPassFilter<2>(4000.f/static_cast<float>(sampleRate)) }
     , m_hip{ dsp::recursive::highPassFilter<2>(200.f/static_cast<float>(sampleRate)) }
@@ -198,11 +198,11 @@ public:
         if(period < m_delay){
             return 0;
         }
-        auto wind = m_lopL(m_windSpeed.getSample());
-        auto sample = 1.f - (wind * 0.4f + 0.3f);
+        auto wind = m_lopL(m_windSpeed.getSample() + 0.3f);
+        auto sample = 1.f - (wind * 0.4f);
         sample = (std::max(m_noise(), sample) - sample) * sample;
         sample = m_lopH(m_hip(sample));
-        sample *= wind * 1.2f;
+        sample *= (wind - 0.2f) * 0.8f;
 
         return sample;
     }

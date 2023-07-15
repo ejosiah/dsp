@@ -39,7 +39,7 @@ std::vector<float> wind(std::chrono::seconds duration, int sampleRate) {
 
     std::generate(wind.begin(), wind.end(), [&]{
        return windGenerator.getSample() +  wh0.getSample() + wh1.getSample()
-             + howls0.getSample() + howls1.getSample();
+             + howls0.getSample() + howls1.getSample() + treeLeaves.getSample();
     });
 
     return wind;
@@ -131,13 +131,13 @@ int main(int, char**){
         static int leftOver = 0;
 
         if(leftOver != 0){
-            written += output.pushAudio(data.data() + written, leftOver);
+            written += output.pushAudio(audio::wrapMono(data.data() + written, leftOver));
             leftOver = data.size() - written;
             std::cout << "written: " << written << ", left over: " << leftOver << "\n";
         }
 
         if(ImGui::Button("Play")){
-            written = output.pushAudio(data.data(), data.size());
+            written = output.pushAudio(audio::wrapMono(data.data(), data.size()));
             leftOver = data.size() - written;
             std::cout << "written: " << written << ", left over: " << leftOver << "\n";
         }

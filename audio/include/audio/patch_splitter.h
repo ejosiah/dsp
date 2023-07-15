@@ -6,13 +6,15 @@
 #include <cassert>
 #include "patch_output.h"
 #include "patch_input.h"
-
+#include "format.h"
 
 namespace audio {
 
     class PatchSplitter{
     public:
-        PatchSplitter() = default;
+        friend class Engine;
+
+        PatchSplitter(Format format);
 
         ~PatchSplitter() = default;
 
@@ -25,6 +27,8 @@ namespace audio {
         int32_t maxNumberOfSamplesThatCanBePushed() const;
 
     private:
+        PatchSplitter() = default;
+
         void addPendingPatches();
 
     private:
@@ -33,8 +37,11 @@ namespace audio {
 
         std::vector<PatchInput> m_connectedOutputs;
         mutable std::mutex m_connectedOutputCriticalSection;
+        Format m_format;
 
     };
+
+    PatchSplitter::PatchSplitter(Format format) : m_format{format} {}
 
     void PatchSplitter::addPendingPatches() {
         std::lock_guard<std::mutex> lk{ m_pendingOutputCriticalSection };
@@ -43,7 +50,7 @@ namespace audio {
     }
 
     PatchOutputStrongPtr PatchSplitter::addNewPatch(uint32_t maxLatencyInSamples, float inGain) {
-        PatchOutputStrongPtr strongOutputPtr = std::make_shared<PatchOutput>(maxLatencyInSamples * 2, inGain);
+        PatchOutputStrongPtr strongOutputPtr = std::make_shared<PatchOutput>(m_format, maxLatencyInSamples * 2, inGain);
 
         {
             std::lock_guard<std::mutex> lk{ m_pendingOutputCriticalSection };
