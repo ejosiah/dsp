@@ -35,12 +35,46 @@ std::vector<float> wind(std::chrono::seconds duration, int sampleRate) {
     TreeLeaves treeLeaves{static_cast<uint32_t>(sampleRate)};
     Howls howls0{ static_cast<uint32_t>(sampleRate), 100, std::make_tuple(0.35f, 0.6f), 0.5, 400, 40, 0.35f, 30.f, 200};
     Howls howls1{ static_cast<uint32_t>(sampleRate), 300, std::make_tuple(0.25f, 0.5f), 0.1, 200, 40, 0.25f, 20.f, 100};
-    std::vector<float> wind( duration.count() * sampleRate );
 
-    std::generate(wind.begin(), wind.end(), [&]{
-       return windGenerator.getSample() +  wh0.getSample() + wh1.getSample()
-             + howls0.getSample() + howls1.getSample() + treeLeaves.getSample();
-    });
+//    std::vector<float> wind( duration.count() * sampleRate );
+//    std::generate(wind.begin(), wind.end(), [&]{
+//       return windGenerator.getSample() +  wh0.getSample() + wh1.getSample()
+//             + howls0.getSample() + howls1.getSample() + treeLeaves.getSample();
+//    });
+
+    auto size = duration.count() * sampleRate;
+
+    float left{}, right{};
+    std::vector<float> wind{};
+    for(int i = 0; i < size; i++){
+        auto channels  = audio::fcpan(windGenerator.getSample(), 0.51);
+        left = std::get<0>(channels);
+        right = std::get<1>(channels);
+
+        channels = audio::fcpan(wh0.getSample(), 0.28);
+        left += std::get<0>(channels);
+        right += std::get<1>(channels);
+
+        channels = audio::fcpan(wh1.getSample(), 0.64);
+        left += std::get<0>(channels);
+        right += std::get<1>(channels);
+
+        channels = audio::fcpan(treeLeaves.getSample(), 0.51);
+        left += std::get<0>(channels);
+        right += std::get<1>(channels);
+
+        channels = audio::fcpan(howls0.getSample(), 0.91);
+        left += std::get<0>(channels);
+        right += std::get<1>(channels);
+
+        channels = audio::fcpan(howls1.getSample(), 0.03);
+        left += std::get<0>(channels);
+        right += std::get<1>(channels);
+
+        wind.push_back(left);
+        wind.push_back(right);
+
+    }
 
     return wind;
 }
@@ -129,16 +163,16 @@ int main(int, char**){
 
         static int written = 0;
         static int leftOver = 0;
-
+        constexpr auto numChannels = 2;
         if(leftOver != 0){
-            written += output.pushAudio(audio::wrapMono(data.data() + written, leftOver));
-            leftOver = data.size() - written;
+            written += output.pushAudio(audio::wrapInterLeaved(data.data() + written * numChannels, numChannels,  leftOver));
+            leftOver = data.size()/numChannels - written;
             std::cout << "written: " << written << ", left over: " << leftOver << "\n";
         }
 
         if(ImGui::Button("Play")){
-            written = output.pushAudio(audio::wrapMono(data.data(), data.size()));
-            leftOver = data.size() - written;
+            written = output.pushAudio(audio::wrapInterLeaved(data.data(), numChannels, data.size()/numChannels));
+            leftOver = data.size()/numChannels - written;
             std::cout << "written: " << written << ", left over: " << leftOver << "\n";
         }
 

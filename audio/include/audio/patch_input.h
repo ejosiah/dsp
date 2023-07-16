@@ -99,6 +99,7 @@ namespace audio {
     }
 
     int32_t PatchInput::pushAudio(const MonoView &left, const MonoView &right) {
+        // TODO check we support stereo
         if(auto outPtr = m_outputHandle.lock()){
             auto numChannels = outPtr->m_format.outputChannels;
             auto numFrames = std::max(left.size.numFrames, right.size.numFrames);

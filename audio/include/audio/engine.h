@@ -165,7 +165,7 @@ namespace audio {
     }
 
     PatchInput Engine::connectNewInput(uint32_t maxLatencyInSamples) {
-        return m_mixer.addNewInput(maxLatencyInSamples, 1);
+        return m_mixer.addNewInput(maxLatencyInSamples * m_format.outputChannels, 1);
     }
 
     PatchOutputStrongPtr Engine::connectNewOutput(uint32_t maxLatencyInSamples) {
