@@ -256,6 +256,7 @@ int main(int, char**){
 
     AudioData audioData{&rbSignal, &rbAudioSettings};
 
+
     vui::show(config, [&]{
 
         static Settings settings{LOW_PASS};
