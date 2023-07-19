@@ -17,7 +17,9 @@ namespace audio {
         {}
 
         ~StreamSource(){
-            m_thread.join();
+            if(m_thread.joinable()) {
+                m_thread.join();
+            }
         }
 
         void play() {
@@ -52,11 +54,11 @@ namespace audio {
     private:
         PatchInput& m_patchInput;
         SampleGenerator m_sampleGenerator;
-        std::thread m_thread;
+        std::thread m_thread{};
         std::atomic_bool isRunning{};
     };
 
-    template<typename SampleType>
+    template<typename SampleType, bool OwnThread = true>
     class Clip{
     public:
         Clip(PatchInput& input, std::span<SampleType> span)
@@ -65,36 +67,18 @@ namespace audio {
         {}
 
         ~Clip(){
-            m_thread.join();
+            if(m_thread.joinable()) {
+                m_thread.join();
+            }
         }
 
         void play(){
-            std::thread thread{ [&]{
-                isRunning = true;
-
-                uint32_t capacity =  m_source.size();
-
-                audio::CircularAudioBuffer<float> buffer(capacity);
-                buffer.push(m_source.data(), capacity);
-                std::vector<float> transferBuf;
-
-                const auto limit = m_loop.load();
-                auto loops = 0;
-
-                for(auto i = 0; i < limit; i++){
-                    buffer.setNum(capacity);
-                    while (isRunning && m_patchInput.isOpen() && buffer.num() > 0) {
-                        transferBuf.resize(buffer.num());
-                        buffer.pop(transferBuf.data(), transferBuf.size());
-
-                        auto pushed = m_patchInput.pushAudio(audio::wrapMono(transferBuf.data(), transferBuf.size()));
-                        auto remainder = transferBuf.size() - pushed;
-                        buffer.setNum(remainder);
-                    }
-                }
-            }};
-
-            m_thread = std::move(thread);
+            if constexpr (OwnThread) {
+                std::thread thread{&Clip::play0, this};
+                m_thread = std::move(thread);
+            }else{
+                play0();
+            }
         }
 
         void loop(int value){
@@ -104,11 +88,36 @@ namespace audio {
         void stop(){
             isRunning = false;
         }
+    private:
+        void play0() {
+            isRunning = true;
+
+            uint32_t capacity =  m_source.size();
+
+            audio::CircularAudioBuffer<float> buffer(capacity);
+            buffer.push(m_source.data(), capacity);
+            std::vector<float> transferBuf;
+
+            const auto limit = m_loop.load();
+            auto loops = 0;
+
+            for(auto i = 0; i < limit; i++){
+                buffer.setNum(capacity);
+                while (isRunning && m_patchInput.isOpen() && buffer.num() > 0) {
+                    transferBuf.resize(buffer.num());
+                    buffer.pop(transferBuf.data(), transferBuf.size());
+
+                    auto pushed = m_patchInput.pushAudio(audio::wrapMono(transferBuf.data(), transferBuf.size()));
+                    auto remainder = transferBuf.size() - pushed;
+                    buffer.setNum(remainder);
+                }
+            }
+        }
 
     private:
         std::span<SampleType> m_source;
         std::atomic_int m_loop{1};
-        std::thread m_thread;
+        std::thread m_thread{};
         PatchInput& m_patchInput;
         std::atomic_bool isRunning{};
     };

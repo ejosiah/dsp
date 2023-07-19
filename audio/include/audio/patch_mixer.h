@@ -50,7 +50,7 @@ namespace audio {
 
     PatchInput PatchMixer::addNewInput(uint32_t maxLatencyInSamples, float InGain) {
         std::lock_guard<std::mutex> scopeLock{m_pendingNewInputsCriticalSection};
-        m_pendingNewInputs.emplace_back(new PatchOutput(m_info, maxLatencyInSamples * 2, InGain));
+        m_pendingNewInputs.emplace_back(new PatchOutput(m_info, maxLatencyInSamples, InGain));
         return PatchInput(m_pendingNewInputs.back());
     }
 
@@ -89,7 +89,7 @@ namespace audio {
         uint32_t smallestNumSamplesBuffered = MaxUint32;
 
         for(auto& output : m_currentInputs){
-            if(output){
+            if(output && output->m_buffer.num() != 0){
                 smallestNumSamplesBuffered = std::min(smallestNumSamplesBuffered, output->m_buffer.num());
             }
         }

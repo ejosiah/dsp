@@ -59,6 +59,10 @@ namespace audio {
                         const PaStreamCallbackTimeInfo* timeInfo,
                         PaStreamCallbackFlags statusFlags,
                         void *userData);
+
+
+        static uint32_t computeSize(Format format, uint32_t channels);
+
     private:
         struct {
             int input{0};
@@ -77,12 +81,9 @@ namespace audio {
 
     Engine::Engine(Format format)
     : m_format{ format }
-    , m_outputBuffer{ format.audioBufferSize * format.outputChannels}
-    , m_inputBuffer{ format.audioBufferSize * format.inputChannels}
-//    , m_outputBuffer{ std::max( format.audioBufferSize * format.outputChannels, format.frameBufferSize * format.outputChannels * 1024)}
-//    , m_inputBuffer{ std::max( format.audioBufferSize * format.inputChannels, format.frameBufferSize  * format.inputChannels *  1024)}
-    {
-    }
+    , m_outputBuffer{ computeSize(format, format.outputChannels)}
+    , m_inputBuffer{ computeSize(format, format.inputChannels)}
+    {}
 
     Engine::~Engine() {
         shutdown();
@@ -113,12 +114,15 @@ namespace audio {
             ERR_GUARD_PA(Pa_Terminate())
             m_audioStream = nullptr;
             requestAudioData.notify_one();
-            m_updateThread.join();
+
+            if(m_updateThread.joinable()) {
+                m_updateThread.join();
+            }
         }
     }
 
     PatchInput Engine::connectNewInput(uint32_t maxLatencyInSamples) {
-        return m_mixer.addNewInput(maxLatencyInSamples * m_format.outputChannels, 1);
+        return m_mixer.addNewInput(maxLatencyInSamples, 1);
     }
 
     PatchOutputStrongPtr Engine::connectNewOutput(uint32_t maxLatencyInSamples) {
@@ -140,7 +144,7 @@ namespace audio {
 
         auto in = bucket.data();
 
-        for(int i = 0; i < read; ++i){
+        for(int i = 0; i < read; i += m_format.outputChannels){
             for(int c = 0; c < m_format.outputChannels; ++c){
                 *out = *in;
                 ++in, ++out;
@@ -179,6 +183,13 @@ namespace audio {
         return paContinue;
     }
 
+    uint32_t Engine::computeSize(Format format, uint32_t channels){
+        auto defaultSize = format.sampleRate * channels;
+        auto size = std::max(defaultSize, format.audioBufferSize * channels);
+        size = alignedSize(size, format.frameBufferSize * channels);
+        return size;
+    }
+
     void Engine::sleep(std::chrono::milliseconds duration) {
         assert(m_audioStream);
         Pa_Sleep(as<long>(duration.count()));
@@ -188,17 +199,24 @@ namespace audio {
         static std::vector<float> buffer{};
         static int32_t pushed = 0;
         static int32_t read = 0;
-        while(isActive()){
+        while(true){
             std::unique_lock<std::mutex> lock{ m_mutex };
 
 //            std::cout << "waiting on data from input patches\n";
             requestAudioData.wait(lock);
+
+            if(!isActive()) break;
+
             const auto available = m_mixer.maxNumberOfSamplesThatCanBePopped();
 //            std::cout << available <<  " available to read from patch\n";
 
             if (available > 0) {
                 auto readSize = std::min(as<int32_t>(m_outputBuffer.remainder()), (available));
                 buffer.resize(readSize);
+                if(readSize%m_format.outputChannels != 0) {
+                    std::cout << "invalid readSize: " << readSize << "\n";
+                    assert(readSize%m_format.outputChannels == 0);
+                }
                 read = m_mixer.popAudio(buffer.data(), readSize, false);
 
                 pushed = m_outputBuffer.push(buffer.data(), read);
