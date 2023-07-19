@@ -19,57 +19,6 @@ if((err) != paNoError) {    \
 
 namespace audio {
 
-    class Info{
-    public:
-        friend class Engine;
-
-        [[nodiscard]]
-        std::chrono::seconds time() const;
-
-        [[nodiscard]]
-        double cpuLoad() const;
-
-        [[nodiscard]]
-        Format format() const;
-
-        bool isActive() const;
-
-        bool isStopped() const;
-
-    private:
-        explicit Info(Format format, PaStream* iStream);
-
-        PaStream* stream{};
-        Format _format{};
-    };
-
-    std::chrono::seconds Info::time() const {
-        assert(stream);
-        return std::chrono::seconds{ static_cast<long long>(Pa_GetStreamTime(stream)) };
-    }
-
-    double Info::cpuLoad() const {
-        assert(stream);
-        return Pa_GetStreamCpuLoad(stream);
-    }
-
-    Info::Info( Format format, PaStream *iStream)
-            : stream{iStream}
-            , _format{format}
-    {}
-
-    Format Info::format() const {
-        return _format;
-    }
-
-    bool Info::isActive() const {
-        return Pa_IsStreamActive(stream);
-    }
-
-    bool Info::isStopped() const {
-        return Pa_IsStreamStopped(stream);
-    }
-
     class Engine {
     public:
         Engine(Format format);
@@ -128,10 +77,10 @@ namespace audio {
 
     Engine::Engine(Format format)
     : m_format{ format }
-    , m_outputBuffer{ std::max( format.audioBufferSize * format.outputChannels, format.frameBufferSize * format.outputChannels  *1024)}
-    , m_inputBuffer{ std::max( format.audioBufferSize * format.inputChannels, format.frameBufferSize  * format.inputChannels *  1024)}
-    , m_mixer{ format }
-    , m_splitter{ format }
+    , m_outputBuffer{ format.audioBufferSize * format.outputChannels}
+    , m_inputBuffer{ format.audioBufferSize * format.inputChannels}
+//    , m_outputBuffer{ std::max( format.audioBufferSize * format.outputChannels, format.frameBufferSize * format.outputChannels * 1024)}
+//    , m_inputBuffer{ std::max( format.audioBufferSize * format.inputChannels, format.frameBufferSize  * format.inputChannels *  1024)}
     {
     }
 
@@ -150,6 +99,10 @@ namespace audio {
                 , m_format.frameBufferSize
                 , Engine::callback, this));
         ERR_GUARD_PA(Pa_StartStream(m_audioStream));
+
+        m_mixer.info(info());
+        m_splitter.info(info());
+
         m_updateThread = std::move(std::thread{ &Engine::update, this });
     }
 
@@ -180,7 +133,7 @@ namespace audio {
         requestAudioData.notify_one();
 
         const auto size = m_format.frameBufferSize * m_format.outputChannels;
-        std::fill_n(out, size, 0);
+        std::fill_n(out, size, 0.f);
         static std::vector<real_t> bucket(size);
 
         auto read = m_outputBuffer.pop(bucket.data(), size);
@@ -240,24 +193,22 @@ namespace audio {
 
 //            std::cout << "waiting on data from input patches\n";
             requestAudioData.wait(lock);
-
-            if(read - pushed != 0){
-                pushed += m_outputBuffer.push(buffer.data() + pushed, read - pushed);
-            }else {
-
-                const auto available = m_mixer.maxNumberOfSamplesThatCanBePopped();
+            const auto available = m_mixer.maxNumberOfSamplesThatCanBePopped();
 //            std::cout << available <<  " available to read from patch\n";
-                if (available > 0) {
-                    buffer.resize(available);
-                    read = m_mixer.popAudio(buffer.data(), available, false);
 
-                    // FIXME buffer might be too small so we need to keep pushing
-                    // until we have completely consumed the data
-                    pushed = m_outputBuffer.push(buffer.data(), read);
-                    m_tap.pushAudio(buffer.data(), read);
-//                std::cout << "read " << read << " from input patches\n";
-                }
+            if (available > 0) {
+                auto readSize = std::min(as<int32_t>(m_outputBuffer.remainder()), (available));
+                buffer.resize(readSize);
+                read = m_mixer.popAudio(buffer.data(), readSize, false);
+
+                pushed = m_outputBuffer.push(buffer.data(), read);
+                m_tap.pushAudio(buffer.data(), read);
+//                std::cout << "read " << read << " from input patches and pushed " << pushed << " samples\n";
+//                if(read != pushed){
+//                    std::cout << "missing " << (read - pushed) << " samples as buffer is full\n";
+//                }
             }
+
         }
     }
 }

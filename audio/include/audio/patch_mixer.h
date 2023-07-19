@@ -5,15 +5,13 @@
 #include <cassert>
 #include "patch_output.h"
 #include "patch_input.h"
-#include "format.h"
+#include "info.h"
 
 namespace audio {
 
     class PatchMixer {
     public:
         friend class Engine;
-
-        PatchMixer(Format format);
 
         PatchInput addNewInput(uint32_t maxLatencyInSamples, float InGain);
 
@@ -30,17 +28,17 @@ namespace audio {
 
         void cleanupDisconnectedPatches();
 
+        void info(Info info);
+
     private:
         std::vector<PatchOutputStrongPtr> m_pendingNewInputs;
         mutable std::mutex m_pendingNewInputsCriticalSection;
 
         std::vector<PatchOutputStrongPtr> m_currentInputs;
         mutable std::mutex m_currentPatchesCriticalSection;
-        Format m_format;
+        Info m_info{};
 
     };
-
-    PatchMixer::PatchMixer(Format format) : m_format{format} {}
 
     void PatchMixer::connectNewPatches() {
         std::lock_guard<std::mutex> scopeLock{m_pendingNewInputsCriticalSection};
@@ -52,7 +50,7 @@ namespace audio {
 
     PatchInput PatchMixer::addNewInput(uint32_t maxLatencyInSamples, float InGain) {
         std::lock_guard<std::mutex> scopeLock{m_pendingNewInputsCriticalSection};
-        m_pendingNewInputs.emplace_back(new PatchOutput(m_format, maxLatencyInSamples * 2, InGain));
+        m_pendingNewInputs.emplace_back(new PatchOutput(m_info, maxLatencyInSamples * 2, InGain));
         return PatchInput(m_pendingNewInputs.back());
     }
 
@@ -111,5 +109,9 @@ namespace audio {
 
     void PatchMixer::cleanupDisconnectedPatches() {
 
+    }
+
+    void PatchMixer::info(Info info) {
+        m_info = info;
     }
 }

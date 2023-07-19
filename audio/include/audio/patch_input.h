@@ -35,7 +35,10 @@ namespace audio {
 
         void gain(float value);
 
+        [[nodiscard]]
         bool isOutputStillActive() const;
+
+        bool isOpen() const;
 
         friend class PatchMixer;
         friend class PatchSplitter;
@@ -89,7 +92,7 @@ namespace audio {
 
     int32_t PatchInput::pushAudio(const MonoView& buffer) {
         if(auto outPtr = m_outputHandle.lock()){
-            if(outPtr->m_format.outputChannels == 1){
+            if(outPtr->m_info.outputChannels() == 1){
                 return pushAudio(buffer.data.data, buffer.size.numFrames);
             }else {
                 return pushAudio(buffer, buffer);
@@ -101,7 +104,7 @@ namespace audio {
     int32_t PatchInput::pushAudio(const MonoView &left, const MonoView &right) {
         // TODO check we support stereo
         if(auto outPtr = m_outputHandle.lock()){
-            auto numChannels = outPtr->m_format.outputChannels;
+            auto numChannels = outPtr->m_info.outputChannels();
             auto numFrames = std::max(left.size.numFrames, right.size.numFrames);
             auto size = numChannels * numFrames;
             std::vector<real_t> data(size);
@@ -141,5 +144,9 @@ namespace audio {
 
     bool PatchInput::isOutputStillActive() const {
         return !m_outputHandle.expired();
+    }
+
+    bool PatchInput::isOpen() const {
+        return isOutputStillActive() && m_outputHandle.lock()->m_info.isActive();
     }
 }

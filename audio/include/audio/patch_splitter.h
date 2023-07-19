@@ -14,8 +14,6 @@ namespace audio {
     public:
         friend class Engine;
 
-        PatchSplitter(Format format);
-
         ~PatchSplitter() = default;
 
         PatchOutputStrongPtr addNewPatch(uint32_t maxLatencyInSamples, float inGain);
@@ -25,6 +23,8 @@ namespace audio {
         size_t num() const;
 
         int32_t maxNumberOfSamplesThatCanBePushed() const;
+
+        void info(Info info);
 
     private:
         PatchSplitter() = default;
@@ -37,11 +37,9 @@ namespace audio {
 
         std::vector<PatchInput> m_connectedOutputs;
         mutable std::mutex m_connectedOutputCriticalSection;
-        Format m_format;
+        Info m_info;
 
     };
-
-    PatchSplitter::PatchSplitter(Format format) : m_format{format} {}
 
     void PatchSplitter::addPendingPatches() {
         std::lock_guard<std::mutex> lk{ m_pendingOutputCriticalSection };
@@ -50,7 +48,7 @@ namespace audio {
     }
 
     PatchOutputStrongPtr PatchSplitter::addNewPatch(uint32_t maxLatencyInSamples, float inGain) {
-        PatchOutputStrongPtr strongOutputPtr = std::make_shared<PatchOutput>(m_format, maxLatencyInSamples * 2, inGain);
+        PatchOutputStrongPtr strongOutputPtr = std::make_shared<PatchOutput>(m_info, maxLatencyInSamples * 2, inGain);
 
         {
             std::lock_guard<std::mutex> lk{ m_pendingOutputCriticalSection };
@@ -104,6 +102,10 @@ namespace audio {
             assert(smallestRemainder <= static_cast<uint32_t>(Maxint32));
             return as<int32_t>(smallestRemainder);
         }
+    }
+
+    void PatchSplitter::info(Info info) {
+        m_info = info;
     }
 
 }

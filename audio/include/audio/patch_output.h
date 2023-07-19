@@ -6,7 +6,7 @@
 #include <vector>
 #include <atomic>
 #include <memory>
-#include <format>
+#include "info.h"
 
 namespace audio {
 
@@ -14,7 +14,7 @@ namespace audio {
     public:
         PatchOutput() = default;
 
-        PatchOutput(Format format, uint32_t maxCapacity, real_t inGain = 1.0f);
+        PatchOutput(Info info, uint32_t maxCapacity, real_t inGain = 1.0f);
 
         int32_t popAudio(real_t *OutBuffer, uint32_t numSamples, bool useLatestAudio);
 
@@ -37,15 +37,15 @@ namespace audio {
         std::vector<real_t> m_mixingBuffer{};
         std::atomic<real_t> m_targetGain{0.0};
         std::atomic<int32_t> m_numAliveInputs{0};
-        Format m_format{};
+        Info m_info;
     };
 
     using PatchOutputStrongPtr = std::shared_ptr<PatchOutput>;
     using PatchOutputWeakPtr = std::weak_ptr<PatchOutput>;
 
-    PatchOutput::PatchOutput(Format format, uint32_t maxCapacity, real_t inGain)
-            : m_format{ format }
-            , m_buffer(maxCapacity * format.outputChannels)
+    PatchOutput::PatchOutput(Info info, uint32_t maxCapacity, real_t inGain)
+            : m_info{ info }
+            , m_buffer(maxCapacity * info.format().outputChannels)
             , m_targetGain(inGain)
             , m_numAliveInputs(0)
     {}
