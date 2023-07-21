@@ -43,6 +43,12 @@ namespace audio {
 
         bool isStopped() const;
 
+        uint32_t sampleRate() const;
+
+        uint32_t outputChannels() const;
+
+        uint32_t inputChannels() const;
+
         void sleep(std::chrono::milliseconds duration);
 
         Info info() const;
@@ -101,8 +107,9 @@ namespace audio {
                 , Engine::callback, this));
         ERR_GUARD_PA(Pa_StartStream(m_audioStream));
 
-        m_mixer.info(info());
-        m_splitter.info(info());
+        m_mixer.set(info());
+        m_splitter.set(info());
+        m_tap.set(info());
 
         m_updateThread = std::move(std::thread{ &Engine::update, this });
     }
@@ -197,36 +204,43 @@ namespace audio {
 
     void Engine::update() {
         static std::vector<float> buffer{};
-        static int32_t pushed = 0;
         static int32_t read = 0;
+
         while(true){
             std::unique_lock<std::mutex> lock{ m_mutex };
-
-//            std::cout << "waiting on data from input patches\n";
             requestAudioData.wait(lock);
 
             if(!isActive()) break;
 
             const auto available = m_mixer.maxNumberOfSamplesThatCanBePopped();
-//            std::cout << available <<  " available to read from patch\n";
 
             if (available > 0) {
                 auto readSize = std::min(as<int32_t>(m_outputBuffer.remainder()), (available));
                 buffer.resize(readSize);
+
                 if(readSize%m_format.outputChannels != 0) {
                     std::cout << "invalid readSize: " << readSize << "\n";
                     assert(readSize%m_format.outputChannels == 0);
                 }
+
                 read = m_mixer.popAudio(buffer.data(), readSize, false);
 
-                pushed = m_outputBuffer.push(buffer.data(), read);
+                m_outputBuffer.push(buffer.data(), read);
                 m_tap.pushAudio(buffer.data(), read);
-//                std::cout << "read " << read << " from input patches and pushed " << pushed << " samples\n";
-//                if(read != pushed){
-//                    std::cout << "missing " << (read - pushed) << " samples as buffer is full\n";
-//                }
             }
 
         }
+    }
+
+    uint32_t Engine::sampleRate() const {
+        return m_format.sampleRate;
+    }
+
+    uint32_t Engine::outputChannels() const {
+        return m_format.outputChannels;
+    }
+
+    uint32_t Engine::inputChannels() const {
+        return m_format.inputChannels;
     }
 }

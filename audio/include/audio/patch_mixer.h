@@ -28,7 +28,7 @@ namespace audio {
 
         void cleanupDisconnectedPatches();
 
-        void info(Info info);
+        void set(Info info);
 
     private:
         std::vector<PatchOutputStrongPtr> m_pendingNewInputs;
@@ -111,7 +111,7 @@ namespace audio {
 
     }
 
-    void PatchMixer::info(Info info) {
+    void PatchMixer::set(Info info) {
         m_info = info;
     }
 }

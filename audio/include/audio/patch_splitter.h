@@ -24,7 +24,7 @@ namespace audio {
 
         int32_t maxNumberOfSamplesThatCanBePushed() const;
 
-        void info(Info info);
+        void set(Info info);
 
     private:
         PatchSplitter() = default;
@@ -104,7 +104,7 @@ namespace audio {
         }
     }
 
-    void PatchSplitter::info(Info info) {
+    void PatchSplitter::set(Info info) {
         m_info = info;
     }
 

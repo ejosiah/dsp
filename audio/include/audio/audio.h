@@ -4,10 +4,22 @@
 #include <tuple>
 #include <cmath>
 #include <vector>
+#include <numeric>
 
 namespace audio {
 
     using Channel2 = std::tuple<real_t, real_t>;
+
+
+    template<typename Type>
+    Type dbToVolume(Type dB){
+        return as<Type>(std::pow(10, 0.05 * dB));
+    }
+
+    template<typename Type>
+    Type volumeToDb(Type volume){
+        return as<Type>(20 * std::log10(volume));
+    }
 
     inline MonoView wrapMono(real_t* samples, uint32_t numSamples){
         return choc::buffer::createMonoView(samples, numSamples);
@@ -39,5 +51,24 @@ namespace audio {
 
     constexpr uint32_t alignedSize(uint32_t value, uint32_t alignment){
         return (value + alignment - 1) & ~(alignment - 1);
+    }
+
+    template<typename Type>
+    void resample(std::vector<Type> vIn, std::vector<Type> vOut, int iFrequency, int oFrequency){
+        const auto LCM = std::lcm(iFrequency, oFrequency);
+        const auto iRatio = LCM / iFrequency;
+        const auto oRatio = LCM / oFrequency;
+        const auto iSize = vIn.size();
+        const auto oSize = vOut.size();
+        for(auto i = 0u; i < oSize; i++){
+            auto from = i * oRatio / iRatio;
+            auto to = from + 1;
+            if(to >= iSize) break;
+            auto offset = (i * oRatio) % iRatio;
+            auto t = float(offset)/float(iRatio);
+            vOut[i] = std::lerp(vIn[from], vIn[to], t);
+        }
+
+
     }
 }
