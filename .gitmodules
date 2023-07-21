@@ -13,3 +13,6 @@
 [submodule "dependencies/kfr"]
 	path = dependencies/kfr
 	url = git@github.com:ejosiah/kfr.git
+[submodule "dependencies/portmidi"]
+	path = dependencies/portmidi
+	url = git@github.com:PortMidi/portmidi.git
