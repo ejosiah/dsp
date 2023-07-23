@@ -115,6 +115,9 @@ namespace audio {
     }
 
     void Engine::shutdown() {
+        m_mixer.close();
+        m_splitter.close();
+
         if(m_audioStream) {
             ERR_GUARD_PA(Pa_StopStream(m_audioStream))
             ERR_GUARD_PA(Pa_CloseStream(m_audioStream))
@@ -192,7 +195,7 @@ namespace audio {
 
     uint32_t Engine::computeSize(Format format, uint32_t channels){
         auto defaultSize = format.sampleRate * channels;
-        auto size = std::max(defaultSize, format.audioBufferSize * channels);
+        auto size = format.audioBufferSize == 0 ? defaultSize : format.audioBufferSize * channels;
         size = alignedSize(size, format.frameBufferSize * channels);
         return size;
     }

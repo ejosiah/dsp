@@ -3,7 +3,6 @@
 #include <imgui.h>
 #include <implot.h>
 #include <dsp/fft.h>
-#include <vui/blocking_queue.h>
 #include <array>
 #include <iostream>
 #include <dsp/ring_buffer.h>

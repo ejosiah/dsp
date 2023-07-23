@@ -28,6 +28,8 @@ namespace audio {
 
         void cleanupDisconnectedPatches();
 
+        void close();
+
         void set(Info info);
 
     private:
@@ -113,5 +115,17 @@ namespace audio {
 
     void PatchMixer::set(Info info) {
         m_info = info;
+    }
+
+    void PatchMixer::close() {
+        {
+            std::lock_guard<std::mutex> scopeLock{m_pendingNewInputsCriticalSection};
+            m_pendingNewInputs.clear();
+        }
+        {
+            std::lock_guard<std::mutex> scopeLock{m_pendingNewInputsCriticalSection};
+            m_currentInputs.clear();
+        }
+
     }
 }

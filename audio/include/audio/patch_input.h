@@ -38,6 +38,7 @@ namespace audio {
         [[nodiscard]]
         bool isOutputStillActive() const;
 
+        [[nodiscard]]
         bool isOpen() const;
 
         friend class PatchMixer;

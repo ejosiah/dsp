@@ -26,6 +26,8 @@ namespace audio {
 
         void set(Info info);
 
+        void close();
+
     private:
         PatchSplitter() = default;
 
@@ -106,6 +108,17 @@ namespace audio {
 
     void PatchSplitter::set(Info info) {
         m_info = info;
+    }
+
+    void PatchSplitter::close() {
+        {
+            std::lock_guard<std::mutex> lk{ m_pendingOutputCriticalSection };
+            m_pendingOutputs.clear();
+        }
+        {
+            std::lock_guard<std::mutex> lk{ m_connectedOutputCriticalSection };
+            m_connectedOutputs.clear();
+        }
     }
 
 }
