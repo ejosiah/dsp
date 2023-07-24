@@ -88,10 +88,16 @@ int main(int, char**){
         ImGui::Text("Oscillator:");
         ImGui::Indent(16);
 
-        ImGui::RadioButton("Sine Wave", &oscillator, 0); ImGui::SameLine();
-        ImGui::RadioButton("Square Wave", &oscillator, 1); ImGui::SameLine();
-        ImGui::RadioButton("Saw Wave", &oscillator, 2); ImGui::SameLine();
-        ImGui::RadioButton("Triangle Wave", &oscillator, 3);
+        static bool dirty = false;
+        dirty |= ImGui::RadioButton("Sine Wave", &oscillator, asInt(OscillatorType::Sine)); ImGui::SameLine();
+        dirty |= ImGui::RadioButton("Square Wave", &oscillator, asInt(OscillatorType::Square)); ImGui::SameLine();
+        dirty |= ImGui::RadioButton("Saw Wave", &oscillator, asInt(OscillatorType::Saw)); ImGui::SameLine();
+        dirty |= ImGui::RadioButton("Triangle Wave", &oscillator, asInt(OscillatorType::Triangle));
+
+        if(dirty){
+            dirty = false;
+            synthesizer.set(toOsc(oscillator));
+        }
 
         ImGui::Indent(-16);
 

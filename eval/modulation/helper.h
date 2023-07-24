@@ -20,14 +20,14 @@ enum OscillatorType { Sine = 0, Square, Triangle, Saw, NumTypes };
 
 struct Controls{
     int sampleRate{0};
-    int type{FM};
+    int type{AM};
     struct {
-        float frequency{10};
+        float frequency{440};
         int index{30};
         int waveType{Sine};
     } modulator;
     struct {
-        float frequency{100};
+        float frequency{320};
         int waveType{Sine};
     } carrier;
 };

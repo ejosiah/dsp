@@ -15,33 +15,34 @@
 #include <dsp/fourier/series.h>
 #include <random>
 
-enum class OscillatorType { Sine, Square, Saw, Triangle };
+enum class OscillatorType : int { Sine = 0, Square, Saw, Triangle };
+
+int asInt(OscillatorType type){ return static_cast<int>(type); }
+OscillatorType toOsc(int i){ return static_cast<OscillatorType>(i); }
 
 union OscillatorParams{
     choc::oscillator::Sine<float> sine;
     choc::oscillator::Square<float> square;
     choc::oscillator::Saw<float> saw;
-    choc::oscillator::Saw<float> triangle;
 };
 
 struct Oscillator {
     OscillatorType type{OscillatorType::Sine};
     OscillatorParams params{};
+    choc::oscillator::Triangle<float> triangle;
 
     float getSample() {
         switch(type){
             case OscillatorType::Sine: return params.sine.getSample();
             case OscillatorType::Square: return params.square.getSample();
             case OscillatorType::Saw: return params.saw.getSample();
-            case OscillatorType::Triangle: return params.triangle.getSample();
+            case OscillatorType::Triangle: return triangle.getSample();
         }
     }
 
     void setFrequency (float frequency, float sampleRate) {
          params.sine.setFrequency(frequency, sampleRate);
-         params.square.setFrequency(frequency, sampleRate);
-         params.saw.setFrequency(frequency, sampleRate);
-         params.triangle.setFrequency(frequency, sampleRate);
+        triangle.setFrequency(frequency, sampleRate);
     }
 };
 
@@ -52,7 +53,7 @@ struct Note{
     State state{State::OFF};
     int pitch{0};
     float loudness{0};
-    choc::oscillator::Sine<float> osc{};
+    Oscillator osc{};
     float t{0};
 
     [[nodiscard]]
@@ -68,6 +69,8 @@ public:
     ~Synthesizer();
 
     void addEvent(PmEvent event);
+
+    void set(OscillatorType oscillator);
 
     void run();
 
@@ -184,8 +187,10 @@ float Synthesizer::nextSample() {
     for(auto& note : m_notes){
         if(note.isOn()) {
             note.t += m_period;
-            auto decay = std::expf(-note.t * 2.0f);
-            sample += decay * note.loudness * note.osc.getSample();
+            auto t = note.t;
+            auto envelope = std::expf(-note.t * 3.0f);
+//            auto envelope = 2.f * (1.f - std::expf(-10.f * t)) * std::exp(-3.f * t);
+            sample += envelope * note.loudness * note.osc.getSample();
         }
 
     }
@@ -194,4 +199,10 @@ float Synthesizer::nextSample() {
 
 bool Synthesizer::notePressed() const {
     return std::any_of(m_notes.begin(), m_notes.end(), [](auto& n){ return n.isOn(); });
+}
+
+void Synthesizer::set(OscillatorType oscillator) {
+    for(auto& note : m_notes){
+        note.osc.type = oscillator;
+    }
 }
